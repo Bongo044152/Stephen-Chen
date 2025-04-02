@@ -3,7 +3,7 @@
         "姓名": "張文鐘 (Wen-Thong Chang)",
         "職稱": "特聘教授兼系主任",
         "學歷": "卡內基美隆大學 電機電腦 博士",
-        "經歷": null,
+        "經歷": [],
         "研究領域": [
             "物連網系統",
             "視訊串流",
@@ -668,7 +668,7 @@
         "姓名": "Tadao Murata",
         "職稱": "榮譽教授",
         "學歷": "學伊利諾大學厄巴納-香檳分校 電機工程博士",
-        "經歷": null,
+        "經歷": [],
         "研究領域": [
             "Applications of Petri nets to problems related to the design, modeling, analysis, and performance of concurrent systems such as the following: distributed/communication software, network protocols, logic- and rule-based AI systems, manufacturing systems, parallel computing systems, and systems with fuzzy latency."
         ],
@@ -686,7 +686,7 @@
             "．玉山科技協會創始人",
             "．曉龍基金會董事長\n．美國百人會成員"
         ],
-        "研究領域": null,
+        "研究領域": [],
         "email": null,
         "辦公室": null,
         "Office hour": null
@@ -701,7 +701,7 @@
             "．IEEE Fellow",
             "．ISCA Fellow"
         ],
-        "研究領域": null,
+        "研究領域": [],
         "email": null,
         "辦公室": null,
         "Office hour": null
@@ -727,7 +727,7 @@
         "姓名": "林一平 (Jason Yi-Bing Lin)",
         "職稱": "兼任講座教授",
         "學歷": "美國華盛頓大學資訊工程博士",
-        "經歷": null,
+        "經歷": [],
         "研究領域": [
             "個人通信網路",
             "行動計算",
@@ -741,7 +741,7 @@
         "姓名": "張嘉淵 (Zhang Jiayuan)",
         "職稱": "兼任講座教授",
         "學歷": null,
-        "經歷": null,
+        "經歷": [],
         "研究領域": [
             "雲端運算",
             "大數據分析",
@@ -782,7 +782,7 @@
             "佐臻股份有限公司 創辦人/董事長",
             "台灣智慧眼鏡產業協會 理事長"
         ],
-        "研究領域": null,
+        "研究領域": [],
         "email": null,
         "辦公室": null,
         "Office hour": null
@@ -791,7 +791,7 @@
         "姓名": "林詠章 (Lin Yongzhang)",
         "職稱": "兼任教授",
         "學歷": null,
-        "經歷": null,
+        "經歷": [],
         "研究領域": [
             "資訊安全",
             "區塊鏈應用",
@@ -807,7 +807,7 @@
         "姓名": "李正吉 (Li Zhengji)",
         "職稱": "兼任教授",
         "學歷": null,
-        "經歷": null,
+        "經歷": [],
         "研究領域": [
             "行動通訊",
             "資訊安全",
@@ -822,7 +822,7 @@
         "姓名": "徐中行 (Xu Zhongxing)",
         "職稱": "兼任教授",
         "學歷": "美國 羅格斯大學 計算機科學博士",
-        "經歷": null,
+        "經歷": [],
         "研究領域": [
             "Software methods (including algorithms, compilers, systems software, and tools)that can enable the synergistic use of many dynamic, heterogeneous hardware resourcesfor enhancing quality of services such as performance, energy efficiency,programmability, and portability."
         ],
@@ -849,7 +849,7 @@
         "姓名": "陳榮燊 (Chen Rongshen)",
         "職稱": "兼任副教授",
         "學歷": null,
-        "經歷": null,
+        "經歷": [],
         "研究領域": [
             "光學工程",
             "白光照明",
@@ -949,7 +949,7 @@
         "姓名": "劉育寰 (Liu Yuhuan)",
         "職稱": "合聘助理教授",
         "學歷": null,
-        "經歷": null,
+        "經歷": [],
         "研究領域": [
             "網路管理",
             "系統管理",
