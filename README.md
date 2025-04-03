@@ -1,4 +1,12 @@
 # **期中報告**
-從亞大資工系的網頁 https://csie.asia.edu.tw/zh_tw/associate_professors_2＊＊
-讀取每個老師的專長／Discipline expertise＊
-存成一個文字檔
+
+本項目為期中作業，透過爬蟲技術從 **亞洲大學資工系** 的網站 ([亞大資工系教授名單](https://csie.asia.edu.tw/zh_tw/associate_professors_2)) 讀取每位教授的專長資訊，並將其存取下來。
+## 功能特點
+- 自動爬取 **亞大資工系** 教授的專長資訊
+- 支持異步處理，提高爬取效率
+- 記錄爬蟲運行日誌，便於除錯
+- 輸出json格式資料
+
+## 架設
+
+## 介紹爬蟲
