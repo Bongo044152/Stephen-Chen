@@ -14,8 +14,8 @@
 
 ### **1. 克隆此專案**
 ```bash
-git clone <倉庫網址>
-cd <專案資料夾>
+git clone git@github.com:Bongo044152/Stephen-Chen.git
+cd Stephen-Chen
 ```
 
 ### **2. 建立虛擬環境**
