@@ -31,7 +31,7 @@ def async_request(func):
             return None  # 發生異常時返回 None
         
         if isinstance(res, dict) and 'error' in res:
-            my_logger.info("心懸是北七!")
+            my_logger.info("檢測到錯誤回傳，開始進行錯誤處理邏輯!")
             error_mes = res['error']
             
             if error_mes == 'Timeout':
