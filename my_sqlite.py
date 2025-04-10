@@ -67,7 +67,7 @@ def store(data: list[dict]) -> None:
         count = cursor.fetchone()[0]
 
         if count != 0:
-            return # 教授的資料已經存在
+            continue # 教授的資料已經存在
         
         # 插入基本資料到 professor_data 表格
         cursor.execute('''
