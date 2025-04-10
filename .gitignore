@@ -1,4 +1,16 @@
+# 快取
 __pycache__
+
+# 用於 python 的虛擬環境 ( venv )
 .venv
+
+# 用於 PyCharm
 .idea
+
+# 用於 vscode
 .vscode
+
+# chromedriver 資料夾
+chromedriver
+# chrome for test 資料夾
+chrome

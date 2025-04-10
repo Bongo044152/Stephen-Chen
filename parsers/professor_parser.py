@@ -10,7 +10,7 @@ class ProfessorParser:
     """教授資訊解析器"""
     
     @staticmethod
-    def parse_html(html):
+    def parse_html(html: str) -> list[dict] :
         """
         解析 HTML 獲取教授列表
         

@@ -1,15 +1,16 @@
 """
 教授資訊爬蟲模組
 """
-import json
+import json, time, os
 import asyncio
-import time
 from concurrent.futures import ThreadPoolExecutor
 from utils.logger import my_logger
 from utils.async_utils import async_request
 from utils.http_utils import fetch_page
 from parsers.professor_parser import ProfessorParser
 from config.setting import TARGET_URL, OUTPUT_FILE, MAX_WORKERS, PAGE_COUNT
+
+from my_sqlite import store
 
 class ProfessorScraper:
     """教授資訊爬蟲類"""
@@ -97,7 +98,6 @@ class ProfessorScraper:
         Args:
             data (list): 要保存的數據
         """
-        import os
         
         # 確保輸出目錄存在
         os.makedirs(os.path.dirname(self.output_file), exist_ok=True)
@@ -106,3 +106,7 @@ class ProfessorScraper:
             my_logger.info(f"一共找到 {len(data)} 位教授的資訊")
             my_logger.info(f"儲存成 json 格式的資料，位於 {os.path.abspath(self.output_file)}")
             json.dump(data, f, indent=4, ensure_ascii=False)
+
+        my_logger.info("將資料儲存至 SQLite 資料庫")
+        store(data)
+        my_logger.info("資料已成功儲存至 SQLite 資料庫")

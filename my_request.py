@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-主程序入口
+主程序入口: request
 """
 import asyncio
 from scrapers.professor_scraper import ProfessorScraper
