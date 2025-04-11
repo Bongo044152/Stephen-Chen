@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 '''
 將資料儲存到 sqlite，資料庫名稱: "professor_data.db"
 
@@ -7,24 +8,37 @@
 import sqlite3
 
 def store(data: list[dict]) -> None:
-    """
-    儲存教授資料到 SQLite 資料庫。
+    """Store a list of professor records into a local SQLite database.
+
+    The function creates (if not already existing) three tables in the
+    `professor_data.db` SQLite database:
+
+    - `professor_data`: Stores the professor's basic information.
+    - `experience`: Stores the work experience of each professor.
+    - `research_field`: Stores the research fields associated with each professor.
+
+    Professors are uniquely identified by their name. If a professor already
+    exists in the database, their record will be skipped.
+
     Args:
-        data (list[dict]): 每個字典包含教授的基本資料，其中 dict 的格式為：
-            {
-                "姓名": str, "職稱": str,
-                "學歷": str, "經歷": list[str],
-                "研究領域": list[str], "email": str,
-                "辦公室": str, "Office hour": str
-            }
+        data (list[dict]): A list of dictionaries, each containing information
+            about a professor. Expected keys in each dictionary:
+            
+            - "姓名" (str): Full name of the professor.
+            - "職稱" (str): Job title.
+            - "學歷" (str): Education background.
+            - "經歷" (list[str]): List of work experiences.
+            - "研究領域" (list[str]): List of research areas.
+            - "email" (str): Email address.
+            - "辦公室" (str): Office location.
+            - "Office hour" (str): Office hours.
+
     Returns:
         None
     """
-    # 連接 SQLite 資料庫（若資料庫不存在，會自動創建）
     conn = sqlite3.connect('professor_data.db')
     cursor = conn.cursor()
 
-    # 創建 professor_data 表格，這是存儲基本資料的表格
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS professor_data (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -37,7 +51,6 @@ def store(data: list[dict]) -> None:
         )
     ''')
 
-    # 創建 experience 表格，這是存儲經歷的附屬表格
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS experience (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -47,7 +60,6 @@ def store(data: list[dict]) -> None:
         )
     ''')
 
-    # 創建 research_field 表格，這是存儲研究領域的附屬表格
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS research_field (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -57,41 +69,36 @@ def store(data: list[dict]) -> None:
         )
     ''')
 
-    # 插入資料
     for professor in data:
-
-        # 查詢教授的名字
         cursor.execute('''
             SELECT COUNT(*) FROM professor_data WHERE name = ?
         ''', (professor['姓名'],))
         count = cursor.fetchone()[0]
 
         if count != 0:
-            continue # 教授的資料已經存在
-        
-        # 插入基本資料到 professor_data 表格
+            continue  # 如果已經有這位教授的資料了
+
         cursor.execute('''
             INSERT INTO professor_data (name, title, education, email, office, office_hour)
             VALUES (?, ?, ?, ?, ?, ?)
-        ''', (professor['姓名'], professor['職稱'], professor['學歷'], professor['email'], professor['辦公室'], professor['Office hour']))
-        
-        # 取得 professor 的 id (資料插入後自動生成的 ID)
+        ''', (
+            professor['姓名'], professor['職稱'], professor['學歷'],
+            professor['email'], professor['辦公室'], professor['Office hour']
+        ))
+
         professor_id = cursor.lastrowid
-        
-        # 插入經歷資料到 experience 表格
+
         for experience in professor['經歷']:
             cursor.execute('''
                 INSERT INTO experience (professor_id, experience)
                 VALUES (?, ?)
             ''', (professor_id, experience))
-        
-        # 插入研究領域資料到 research_field 表格
+
         for field in professor['研究領域']:
             cursor.execute('''
                 INSERT INTO research_field (professor_id, research_field)
                 VALUES (?, ?)
             ''', (professor_id, field))
 
-    # 提交並關閉連接
     conn.commit()
     conn.close()

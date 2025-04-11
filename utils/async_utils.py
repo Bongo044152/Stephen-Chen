@@ -3,23 +3,24 @@
 """
 import asyncio
 import functools
-from concurrent.futures import ThreadPoolExecutor
 from utils.logger import my_logger
-from config.setting import MAX_WORKERS
 
 def async_request(func):
     """
-    將同步請求包裝為異步函數的裝飾器
+    A decorator to wrap synchronous functions and make them asynchronous.
     
+    This decorator allows synchronous functions to be executed asynchronously 
+    by running them in a separate thread pool executor.
+
     Args:
-        func: 要包裝的同步函數
+        func: The synchronous function to be wrapped.
     
     Returns:
-        裝飾後的異步函數
+        A wrapper function that performs the asynchronous execution of `func`.
     """
 
     @functools.wraps(func)
-    async def wrapper(self, executor, *args, **kwargs):
+    async def wrapper(self, executor, *args, **kwargs) -> None | str:
         loop = asyncio.get_event_loop()
         try:
             res = await loop.run_in_executor(
@@ -28,7 +29,7 @@ def async_request(func):
             )
         except Exception as e:
             my_logger.error(f"運行錯誤! {e}")
-            return None  # 發生異常時返回 None
+            return None  # 發生異常時返回 None，表示沒有資料
         
         if isinstance(res, dict) and 'error' in res:
             my_logger.info("檢測到錯誤回傳，開始進行錯誤處理")
@@ -48,6 +49,7 @@ def async_request(func):
                 sys.exit(-1)
             return None
         else:
-            return res['content'] if isinstance(res, dict) and 'content' in res else res
+            # HTML 或者 None，但這邊一定是 HTML，因為後者不會發生，這邊是 "防禦性編程"
+            return res['content'] if isinstance(res, dict) and 'content' in res else None
             
     return wrapper

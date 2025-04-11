@@ -1,0 +1,219 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>parsers package &mdash; Stephen-Chen 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="scrapers package" href="scrapers.html" />
+    <link rel="prev" title="my_sqlite module" href="my_sqlite.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Stephen-Chen
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Stephen-Chen</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="my_request.html">my_request module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="my_selenium.html">my_selenium module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="my_sqlite.html">my_sqlite module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">parsers package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-parsers.professor_parser">parsers.professor_parser module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#parsers.professor_parser.ProfessorParser"><code class="docutils literal notranslate"><span class="pre">ProfessorParser</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-parsers">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scrapers.html">scrapers package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils package</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Stephen-Chen</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Stephen-Chen</a></li>
+      <li class="breadcrumb-item active">parsers package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/parsers.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="parsers-package">
+<h1>parsers package<a class="headerlink" href="#parsers-package" title="Link to this heading"></a></h1>
+<section id="module-parsers.professor_parser">
+<span id="parsers-professor-parser-module"></span><h2>parsers.professor_parser module<a class="headerlink" href="#module-parsers.professor_parser" title="Link to this heading"></a></h2>
+<p>教授資訊解析模組</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="parsers.professor_parser.ProfessorParser">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">parsers.professor_parser.</span></span><span class="sig-name descname"><span class="pre">ProfessorParser</span></span><a class="reference internal" href="_modules/parsers/professor_parser.html#ProfessorParser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parsers.professor_parser.ProfessorParser" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Professor Information Parser</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="parsers.professor_parser.ProfessorParser.parse_html">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse_html</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">html</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/parsers/professor_parser.html#ProfessorParser.parse_html"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parsers.professor_parser.ProfessorParser.parse_html" title="Link to this definition"></a></dt>
+<dd><p>Parses the provided HTML content to extract information about professors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>html</strong> (<em>str</em>) – The HTML content of the page to be parsed.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>A list of dictionaries, each containing professor information, with the following structure:</dt><dd><ul class="simple">
+<li><p>’姓名’: The professor’s name (str or None if not found).</p></li>
+<li><p>’職稱’: The professor’s position or academic title (str or None if not found).</p></li>
+<li><p>’學歷’: The professor’s education background (str or None if not found).</p></li>
+<li><p>’經歷’: A list of the professor’s experiences (list of str, or an empty list if not found).</p></li>
+<li><p>’研究領域’: A list of the professor’s research areas (list of str, or an empty list if not found).</p></li>
+<li><p>’email’: The professor’s email (str or None if not found).</p></li>
+<li><p>’辦公室’: The professor’s office location (str or None if not found).</p></li>
+<li><p>’Office hour’: The professor’s office hours (str or None if not found, or a link to the schedule).</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="parsers.professor_parser.ProfessorParser.extract_professor_info">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">extract_professor_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">li_elements</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">html_content</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parsers/professor_parser.html#ProfessorParser.extract_professor_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parsers.professor_parser.ProfessorParser.extract_professor_info" title="Link to this definition"></a></dt>
+<dd><p>Extracts detailed information about a professor from the given HTML elements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>li_elements</strong> (<em>list</em>) – A list of &lt;li&gt; elements that contain professor information.</p></li>
+<li><p><strong>html_content</strong> (<em>str</em>) – The raw HTML content, used to extract the professor’s email.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>A dictionary containing the extracted information about the professor. The dictionary</dt><dd><p>includes the following keys:
+- ‘姓名’: The professor’s name (str or None if not found).
+- ‘職稱’: The professor’s position or academic title (str or None if not found).
+- ‘學歷’: The professor’s education background (str or None if not found).
+- ‘經歷’: A list of the professor’s experiences (list of str, or an empty list if not found).
+- ‘研究領域’: A list of the professor’s research areas (list of str, or an empty list if not found).
+- ‘email’: The professor’s email (str or None if not found).
+- ‘辦公室’: The professor’s office location (str or None if not found).
+- ‘Office hour’: The professor’s office hours (str or None if not found, or a link to the schedule).</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="parsers.professor_parser.ProfessorParser.extract_email">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">extract_email</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">html_string</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parsers/professor_parser.html#ProfessorParser.extract_email"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#parsers.professor_parser.ProfessorParser.extract_email" title="Link to this definition"></a></dt>
+<dd><p>Extracts and decodes the email address from the HTML content.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>html_string</strong> (<em>str</em>) – The HTML string containing the encoded email.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The decoded email address (or None if not found or decoding fails).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-parsers">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-parsers" title="Link to this heading"></a></h2>
+<p>用來解析 html</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="my_sqlite.html" class="btn btn-neutral float-left" title="my_sqlite module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scrapers.html" class="btn btn-neutral float-right" title="scrapers package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, 陳心璿.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

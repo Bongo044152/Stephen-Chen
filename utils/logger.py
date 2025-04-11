@@ -6,15 +6,24 @@ import logging
 import os
 from datetime import datetime
 
-def init_logger(level='I'):
+def init_logger(level: str = 'I') -> logging.Logger:
     """
-    初始化日誌記錄器
-    
+    Initializes and configures the logger.
+
     Args:
-        level (str): 日誌等級 ('D'=DEBUG, 'I'=INFO, 'W'=WARNING, 'E'=ERROR, 'C'=CRITICAL)
-    
+        level (str): The logging level (default is 'I' for INFO).
+                    Accepted values:
+                    'D' = DEBUG
+                    'I' = INFO
+                    'W' = WARNING
+                    'E' = ERROR
+                    'C' = CRITICAL
+
     Returns:
-        logging.Logger: 配置好的日誌記錄器
+        logging.Logger: A configured logger instance.
+    
+    Raises:
+        AttributeError: If an invalid logging level is provided.
     """
 
     # 統一大寫

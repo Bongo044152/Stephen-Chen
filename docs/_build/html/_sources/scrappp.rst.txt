@@ -1,0 +1,53 @@
+scrappp package
+===============
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scrappp.spiders
+
+Submodules
+----------
+
+scrappp.items module
+--------------------
+
+.. automodule:: scrappp.items
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+scrappp.middlewares module
+--------------------------
+
+.. automodule:: scrappp.middlewares
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+scrappp.pipelines module
+------------------------
+
+.. automodule:: scrappp.pipelines
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+scrappp.settings module
+-----------------------
+
+.. automodule:: scrappp.settings
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: scrappp
+   :members:
+   :show-inheritance:
+   :undoc-members:

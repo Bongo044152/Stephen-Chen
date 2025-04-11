@@ -9,25 +9,34 @@ from config.setting import TIMEOUT
 
 def get_random_user_agent():
     """
-    隨機取得 user_agent
-    
+    Returns a randomly selected User-Agent string from the predefined list.
+
+    This function is used to help prevent the scraper from being blocked by rotating
+    User-Agent headers.
+
     Returns:
-        str: 隨機選擇的 User-Agent
+        str: A randomly chosen User-Agent string.
     """
     my_logger.debug("獲取隨機的 user_agents")
     return random.choice(USER_AGENTS)
 
-def fetch_page(url, params=None, timeout=TIMEOUT):
+def fetch_page(url:str, params:dict=None, timeout:int=TIMEOUT):
     """
-    獲取網頁訊息
-    
+    Fetches the content of a web page by sending an HTTP GET request.
+
     Args:
-        url (str): 網頁的 URL
-        params (dict, optional): 請求參數
-        timeout (int, optional): 請求超時時間
-    
+        url (str): The URL of the web page to scrape.
+        params (dict, optional): A dictionary of query parameters to be sent in the request. Defaults to None.
+        timeout (int, optional): The timeout period for the request in seconds. Defaults to the `TIMEOUT` constant.
+
     Returns:
-        dict: 包含響應內容或錯誤信息的字典
+        dict: A dictionary containing either the page content or error information.
+            The dictionary has the following keys:
+            - 'content': The HTML content of the page (if request is successful).
+            - 'error': An error message (if any error occurs during the request).
+            - 'message': A detailed error message (for specific HTTP errors).
+            - 'status_code': The HTTP status code (for HTTP errors).
+            - 'url': The URL that was requested.
     """
     my_logger.info(f"開始爬取網站...\n目標網址: {url}, {params}")
     

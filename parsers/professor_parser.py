@@ -7,18 +7,26 @@ from bs4 import BeautifulSoup
 from utils.logger import my_logger
 
 class ProfessorParser:
-    """教授資訊解析器"""
+    """Professor Information Parser"""
     
     @staticmethod
     def parse_html(html: str) -> list[dict] :
         """
-        解析 HTML 獲取教授列表
+        Parses the provided HTML content to extract information about professors.
         
         Args:
-            html (str): 網頁 HTML 內容
+            html (str): The HTML content of the page to be parsed.
             
         Returns:
-            list: 教授資訊列表
+            list: A list of dictionaries, each containing professor information, with the following structure:
+                - '姓名': The professor's name (str or None if not found).
+                - '職稱': The professor's position or academic title (str or None if not found).
+                - '學歷': The professor's education background (str or None if not found).
+                - '經歷': A list of the professor's experiences (list of str, or an empty list if not found).
+                - '研究領域': A list of the professor's research areas (list of str, or an empty list if not found).
+                - 'email': The professor's email (str or None if not found).
+                - '辦公室': The professor's office location (str or None if not found).
+                - 'Office hour': The professor's office hours (str or None if not found, or a link to the schedule).
         """
         if not html:
             return []
@@ -29,28 +37,31 @@ class ProfessorParser:
         professors = []
         for item in professor_items:
             li_elements = item.select('li') # 獲取資訊欄
-            professor_info = ProfessorParser._extract_professor_info(li_elements, str(item))
+            professor_info = ProfessorParser.extract_professor_info(li_elements, str(item))
             professors.append(professor_info)
         
         return professors
     
     @staticmethod
-    def _extract_professor_info(li_elements, html_content):
+    def extract_professor_info(li_elements, html_content):
         """
-        從 HTML 元素中提取教授資訊
+        Extracts detailed information about a professor from the given HTML elements.
         
         Args:
-            li_elements (list): <li> 元素列表
-            html_content (str): 原始 HTML 內容，為了 email 欄位而生!
+            li_elements (list): A list of <li> elements that contain professor information.
+            html_content (str): The raw HTML content, used to extract the professor's email.
             
         Returns:
-            dict: 教授資料\，格式:
-            {
-                "姓名": None, "職稱": None,
-                "學歷": None, "經歷": list[str],
-                "研究領域": list[str], "email": None,
-                "辦公室": None, "Office hour": None
-            }
+            dict: A dictionary containing the extracted information about the professor. The dictionary 
+                includes the following keys:
+                - '姓名': The professor's name (str or None if not found).
+                - '職稱': The professor's position or academic title (str or None if not found).
+                - '學歷': The professor's education background (str or None if not found).
+                - '經歷': A list of the professor's experiences (list of str, or an empty list if not found).
+                - '研究領域': A list of the professor's research areas (list of str, or an empty list if not found).
+                - 'email': The professor's email (str or None if not found).
+                - '辦公室': The professor's office location (str or None if not found).
+                - 'Office hour': The professor's office hours (str or None if not found, or a link to the schedule).
         """
         my_logger.debug("開始清洗教授資料...")
         
@@ -102,21 +113,21 @@ class ProfessorParser:
                     break
         
         # 解析 email
-        info['email'] = ProfessorParser._extract_email(html_content)
+        info['email'] = ProfessorParser.extract_email(html_content)
         
         my_logger.debug(f"教授 {info['姓名']} 資料處理完畢")
         return info
     
     @staticmethod
-    def _extract_email(html_string):
+    def extract_email(html_string):
         """
-        從 HTML 字串中提取並解碼 email
+        Extracts and decodes the email address from the HTML content.
         
         Args:
-            html_string (str): 包含編碼 email 的 HTML
+            html_string (str): The HTML string containing the encoded email.
             
         Returns:
-            str or None: 解碼後的 email 或 None
+            str: The decoded email address (or None if not found or decoding fails).
         """
         my_logger.debug("進行 email 解碼..")
         

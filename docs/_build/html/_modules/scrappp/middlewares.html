@@ -1,0 +1,243 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scrappp.middlewares &mdash; Stephen-Chen 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Stephen-Chen
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Stephen-Chen</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Stephen-Chen</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">scrappp.middlewares</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for scrappp.middlewares</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Define here the models for your spider middleware</span>
+<span class="c1">#</span>
+<span class="c1"># See documentation in:</span>
+<span class="c1"># https://docs.scrapy.org/en/latest/topics/spider-middleware.html</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">scrapy</span><span class="w"> </span><span class="kn">import</span> <span class="n">signals</span>
+
+<span class="c1"># useful for handling different item types with a single interface</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">itemadapter</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_item</span><span class="p">,</span> <span class="n">ItemAdapter</span>
+
+
+<div class="viewcode-block" id="MyprojectSpiderMiddleware">
+<a class="viewcode-back" href="../../scrappp.html#scrappp.middlewares.MyprojectSpiderMiddleware">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyprojectSpiderMiddleware</span><span class="p">:</span>
+    <span class="c1"># Not all methods need to be defined. If a method is not defined,</span>
+    <span class="c1"># scrapy acts as if the spider middleware does not modify the</span>
+    <span class="c1"># passed objects.</span>
+
+<div class="viewcode-block" id="MyprojectSpiderMiddleware.from_crawler">
+<a class="viewcode-back" href="../../scrappp.html#scrappp.middlewares.MyprojectSpiderMiddleware.from_crawler">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_crawler</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">crawler</span><span class="p">):</span>
+        <span class="c1"># This method is used by Scrapy to create your spiders.</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">()</span>
+        <span class="n">crawler</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">spider_opened</span><span class="p">,</span> <span class="n">signal</span><span class="o">=</span><span class="n">signals</span><span class="o">.</span><span class="n">spider_opened</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">s</span></div>
+
+
+<div class="viewcode-block" id="MyprojectSpiderMiddleware.process_spider_input">
+<a class="viewcode-back" href="../../scrappp.html#scrappp.middlewares.MyprojectSpiderMiddleware.process_spider_input">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">process_spider_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+        <span class="c1"># Called for each response that goes through the spider</span>
+        <span class="c1"># middleware and into the spider.</span>
+
+        <span class="c1"># Should return None or raise an exception.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="MyprojectSpiderMiddleware.process_spider_output">
+<a class="viewcode-back" href="../../scrappp.html#scrappp.middlewares.MyprojectSpiderMiddleware.process_spider_output">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">process_spider_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+        <span class="c1"># Called with the results returned from the Spider, after</span>
+        <span class="c1"># it has processed the response.</span>
+
+        <span class="c1"># Must return an iterable of Request, or item objects.</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">i</span></div>
+
+
+<div class="viewcode-block" id="MyprojectSpiderMiddleware.process_spider_exception">
+<a class="viewcode-back" href="../../scrappp.html#scrappp.middlewares.MyprojectSpiderMiddleware.process_spider_exception">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">process_spider_exception</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">exception</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+        <span class="c1"># Called when a spider or process_spider_input() method</span>
+        <span class="c1"># (from other spider middleware) raises an exception.</span>
+
+        <span class="c1"># Should return either None or an iterable of Request or item objects.</span>
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="MyprojectSpiderMiddleware.process_start_requests">
+<a class="viewcode-back" href="../../scrappp.html#scrappp.middlewares.MyprojectSpiderMiddleware.process_start_requests">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">process_start_requests</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_requests</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+        <span class="c1"># Called with the start requests of the spider, and works</span>
+        <span class="c1"># similarly to the process_spider_output() method, except</span>
+        <span class="c1"># that it doesn’t have a response associated.</span>
+
+        <span class="c1"># Must return only requests (not items).</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">start_requests</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">r</span></div>
+
+
+<div class="viewcode-block" id="MyprojectSpiderMiddleware.spider_opened">
+<a class="viewcode-back" href="../../scrappp.html#scrappp.middlewares.MyprojectSpiderMiddleware.spider_opened">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">spider_opened</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+        <span class="n">spider</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Spider opened: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">spider</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="MyprojectDownloaderMiddleware">
+<a class="viewcode-back" href="../../scrappp.html#scrappp.middlewares.MyprojectDownloaderMiddleware">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyprojectDownloaderMiddleware</span><span class="p">:</span>
+    <span class="c1"># Not all methods need to be defined. If a method is not defined,</span>
+    <span class="c1"># scrapy acts as if the downloader middleware does not modify the</span>
+    <span class="c1"># passed objects.</span>
+
+<div class="viewcode-block" id="MyprojectDownloaderMiddleware.from_crawler">
+<a class="viewcode-back" href="../../scrappp.html#scrappp.middlewares.MyprojectDownloaderMiddleware.from_crawler">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_crawler</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">crawler</span><span class="p">):</span>
+        <span class="c1"># This method is used by Scrapy to create your spiders.</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">()</span>
+        <span class="n">crawler</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">spider_opened</span><span class="p">,</span> <span class="n">signal</span><span class="o">=</span><span class="n">signals</span><span class="o">.</span><span class="n">spider_opened</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">s</span></div>
+
+
+<div class="viewcode-block" id="MyprojectDownloaderMiddleware.process_request">
+<a class="viewcode-back" href="../../scrappp.html#scrappp.middlewares.MyprojectDownloaderMiddleware.process_request">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">process_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+        <span class="c1"># Called for each request that goes through the downloader</span>
+        <span class="c1"># middleware.</span>
+
+        <span class="c1"># Must either:</span>
+        <span class="c1"># - return None: continue processing this request</span>
+        <span class="c1"># - or return a Response object</span>
+        <span class="c1"># - or return a Request object</span>
+        <span class="c1"># - or raise IgnoreRequest: process_exception() methods of</span>
+        <span class="c1">#   installed downloader middleware will be called</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="MyprojectDownloaderMiddleware.process_response">
+<a class="viewcode-back" href="../../scrappp.html#scrappp.middlewares.MyprojectDownloaderMiddleware.process_response">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">process_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+        <span class="c1"># Called with the response returned from the downloader.</span>
+
+        <span class="c1"># Must either;</span>
+        <span class="c1"># - return a Response object</span>
+        <span class="c1"># - return a Request object</span>
+        <span class="c1"># - or raise IgnoreRequest</span>
+        <span class="k">return</span> <span class="n">response</span></div>
+
+
+<div class="viewcode-block" id="MyprojectDownloaderMiddleware.process_exception">
+<a class="viewcode-back" href="../../scrappp.html#scrappp.middlewares.MyprojectDownloaderMiddleware.process_exception">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">process_exception</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">exception</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+        <span class="c1"># Called when a download handler or a process_request()</span>
+        <span class="c1"># (from other downloader middleware) raises an exception.</span>
+
+        <span class="c1"># Must either:</span>
+        <span class="c1"># - return None: continue processing this exception</span>
+        <span class="c1"># - return a Response object: stops process_exception() chain</span>
+        <span class="c1"># - return a Request object: stops process_exception() chain</span>
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="MyprojectDownloaderMiddleware.spider_opened">
+<a class="viewcode-back" href="../../scrappp.html#scrappp.middlewares.MyprojectDownloaderMiddleware.spider_opened">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">spider_opened</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+        <span class="n">spider</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Spider opened: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">spider</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, 陳心璿.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -20,5 +20,5 @@ TIMEOUT = 5     # request 的最大等待時間 (s)
 PAGE_COUNT = 2  # 爬取頁數
 
 # selenium 設定
-CHROME_DRIVER_PATH = r".\chromedriver\chromedriver.exe"
-EXECUTE_CHROME_PATH = r".\chrome\chrome.exe"
+CHROME_DRIVER_PATH = os.path.abspath(r".\chromedriver\chromedriver.exe")
+EXECUTE_CHROME_PATH = os.path.abspath(r".\chrome\chrome.exe")
