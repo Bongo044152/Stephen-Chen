@@ -150,12 +150,14 @@ User-Agent headers.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><dl class="simple">
-<dt>A dictionary containing either the page content or error information.</dt><dd><p>The dictionary has the following keys:
-- ‘content’: The HTML content of the page (if request is successful).
-- ‘error’: An error message (if any error occurs during the request).
-- ‘message’: A detailed error message (for specific HTTP errors).
-- ‘status_code’: The HTTP status code (for HTTP errors).
-- ‘url’: The URL that was requested.</p>
+<dt>A dictionary containing either the page content or error information.</dt><dd><p>The dictionary has the following keys:</p>
+<ul class="simple">
+<li><p>’content’: The HTML content of the page (if request is successful).</p></li>
+<li><p>’error’: An error message (if any error occurs during the request).</p></li>
+<li><p>’message’: A detailed error message (for specific HTTP errors).</p></li>
+<li><p>’status_code’: The HTTP status code (for HTTP errors).</p></li>
+<li><p>’url’: The URL that was requested.</p></li>
+</ul>
 </dd>
 </dl>
 </p>
@@ -177,13 +179,17 @@ User-Agent headers.</p>
 <dd><p>Initializes and configures the logger.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>level</strong> (<em>str</em>) – The logging level (default is ‘I’ for INFO).
-Accepted values:
-‘D’ = DEBUG
-‘I’ = INFO
-‘W’ = WARNING
-‘E’ = ERROR
-‘C’ = CRITICAL</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>level</strong> (<em>str</em>) – The logging level (default is ‘I’ for INFO).</p></li>
+<li><p><strong>values</strong> (<em>Accepted</em>) – <ul>
+<li><p>‘D’ = DEBUG</p></li>
+<li><p>’I’ = INFO</p></li>
+<li><p>’W’ = WARNING</p></li>
+<li><p>’E’ = ERROR</p></li>
+<li><p>’C’ = CRITICAL</p></li>
+</ul>
+</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A configured logger instance.</p>

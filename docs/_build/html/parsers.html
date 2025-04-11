@@ -106,8 +106,9 @@
 <dd class="field-odd"><p><strong>html</strong> (<em>str</em>) – The HTML content of the page to be parsed.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><dl class="simple">
-<dt>A list of dictionaries, each containing professor information, with the following structure:</dt><dd><ul class="simple">
+<dd class="field-even"><p><p>A list of dictionaries, each containing professor information, with the following structure:</p>
+<blockquote>
+<div><ul class="simple">
 <li><p>’姓名’: The professor’s name (str or None if not found).</p></li>
 <li><p>’職稱’: The professor’s position or academic title (str or None if not found).</p></li>
 <li><p>’學歷’: The professor’s education background (str or None if not found).</p></li>
@@ -117,8 +118,7 @@
 <li><p>’辦公室’: The professor’s office location (str or None if not found).</p></li>
 <li><p>’Office hour’: The professor’s office hours (str or None if not found, or a link to the schedule).</p></li>
 </ul>
-</dd>
-</dl>
+</div></blockquote>
 </p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -140,15 +140,17 @@
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><dl class="simple">
-<dt>A dictionary containing the extracted information about the professor. The dictionary</dt><dd><p>includes the following keys:
-- ‘姓名’: The professor’s name (str or None if not found).
-- ‘職稱’: The professor’s position or academic title (str or None if not found).
-- ‘學歷’: The professor’s education background (str or None if not found).
-- ‘經歷’: A list of the professor’s experiences (list of str, or an empty list if not found).
-- ‘研究領域’: A list of the professor’s research areas (list of str, or an empty list if not found).
-- ‘email’: The professor’s email (str or None if not found).
-- ‘辦公室’: The professor’s office location (str or None if not found).
-- ‘Office hour’: The professor’s office hours (str or None if not found, or a link to the schedule).</p>
+<dt>A dictionary containing the extracted information about the professor. The dictionary</dt><dd><p>includes the following keys:</p>
+<ul class="simple">
+<li><p>’姓名’: The professor’s name (str or None if not found).</p></li>
+<li><p>’職稱’: The professor’s position or academic title (str or None if not found).</p></li>
+<li><p>’學歷’: The professor’s education background (str or None if not found).</p></li>
+<li><p>’經歷’: A list of the professor’s experiences (list of str, or an empty list if not found).</p></li>
+<li><p>’研究領域’: A list of the professor’s research areas (list of str, or an empty list if not found).</p></li>
+<li><p>’email’: The professor’s email (str or None if not found).</p></li>
+<li><p>’辦公室’: The professor’s office location (str or None if not found).</p></li>
+<li><p>’Office hour’: The professor’s office hours (str or None if not found, or a link to the schedule).</p></li>
+</ul>
 </dd>
 </dl>
 </p>

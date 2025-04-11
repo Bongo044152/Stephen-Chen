@@ -19,6 +19,7 @@ class ProfessorParser:
             
         Returns:
             list: A list of dictionaries, each containing professor information, with the following structure:
+
                 - '姓名': The professor's name (str or None if not found).
                 - '職稱': The professor's position or academic title (str or None if not found).
                 - '學歷': The professor's education background (str or None if not found).
@@ -54,6 +55,7 @@ class ProfessorParser:
         Returns:
             dict: A dictionary containing the extracted information about the professor. The dictionary 
                 includes the following keys:
+                
                 - '姓名': The professor's name (str or None if not found).
                 - '職稱': The professor's position or academic title (str or None if not found).
                 - '學歷': The professor's education background (str or None if not found).

@@ -32,6 +32,7 @@ def fetch_page(url:str, params:dict=None, timeout:int=TIMEOUT):
     Returns:
         dict: A dictionary containing either the page content or error information.
             The dictionary has the following keys:
+            
             - 'content': The HTML content of the page (if request is successful).
             - 'error': An error message (if any error occurs during the request).
             - 'message': A detailed error message (for specific HTTP errors).

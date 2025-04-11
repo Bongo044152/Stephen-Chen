@@ -12,12 +12,14 @@ def init_logger(level: str = 'I') -> logging.Logger:
 
     Args:
         level (str): The logging level (default is 'I' for INFO).
-                    Accepted values:
-                    'D' = DEBUG
-                    'I' = INFO
-                    'W' = WARNING
-                    'E' = ERROR
-                    'C' = CRITICAL
+
+        Accepted values:
+        
+            - 'D' = DEBUG
+            - 'I' = INFO
+            - 'W' = WARNING
+            - 'E' = ERROR
+            - 'C' = CRITICAL
 
     Returns:
         logging.Logger: A configured logger instance.
