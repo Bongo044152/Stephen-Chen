@@ -1,64 +1,128 @@
-# **期中報告**
+# 爬蟲介紹
+爬蟲是屬於自動化的程式，目的是在抓取網站上的資料。通常爬蟲會模擬用戶的瀏覽行為，通過HTTP請求從網站獲取HTML頁面，並分析其內容以提取有用的信息。
 
-本項目為期中作業，利用 **爬蟲技術** 從 [亞洲大學資工系官網](https://csie.asia.edu.tw/zh_tw/associate_professors_2) 獲取每位教授的專長資訊，並將其存取下來。
-
-# **主要函式庫**
-
-## **Request**
-- Python 的 Requests 庫被創建用於使 HTTP 請求更加簡單和人性化。請求複雜性抽象變為簡單的 API，可以專注於與網絡上的服務和數據進行交互。 無論抓取網頁和 REST API 互動，還是向伺服器發送數據，Requests 庫都能提供需求。 
-最常見用於 **Python** 的HTTP 請求（GET、POST、PUT、DELETE 等）
+## 常見用途：
+![Google bot](https://resources.americaneagle.com/aecom-blobs/images/default-source/blog-images/how-does-the-googlebot-crawler-work.png?sfvrsn=ce204b57_1)
+Googlebot 對於 SEO 至關重要，因為它們會「讀取」網頁並對其進行索引，以便可以根據搜尋者的查詢向其提供服務。 Googlebot 有多種類型，每種類型都有其特定的功能。
 
 
+- 移動爬蟲
 
-## **Scrapy**
-- Scrapy是一套開放原始碼框架，它已經定義了完整的爬蟲流程與模組，透過這個框架可以快速、簡單的幫助我們抓取HTML頁面、取得API回傳的資料，甚至於可以撰寫非同步網頁爬蟲。像是從網站中自動擷取結構化資料，如商品資訊、新聞文章、學術資料、社群貼文等等。
-
-
-| 元件名                    | 功能                                 |
-|------------------------|------------------------------------|
-| **Spider**             | 撰寫的爬蟲邏輯，告訴 Scrapy 要爬哪些頁面、要抓什麼資料    |
-| **Item**               | 結構化資料容器（像是 Python 字典）              |
-| **Pipeline**           | 對資料做清洗、驗證、儲存等操作                    |
-| **Middleware**         | 請求與回應的中介處理，例如換 IP、換 UA、處理 cookie 等 |
+  移動爬蟲的用途正如您所想！它專門針對行動友善內容，以確保 Google 為透過行動裝置存取網路的使用者提供相關且有用的搜尋結果。這反映出使用行動裝置上網的現像日益增多。
 
 
+- 桌面爬蟲
+
+  桌面爬蟲旨在模擬傳統桌面網路瀏覽器的視圖。這使得 Googlebot 能夠以類似於桌面用戶體驗的方式理解和索引網頁，確保針對較大螢幕優化的內容和佈局得到正確索引。
 
 
+- 專用爬蟲
+
+  Googlebot 使用專門的爬蟲從特定類型的網站和內容收集資訊。從新聞文章到圖片、影片和本地商業列表，這些爬蟲旨在深入挖掘每個領域。透過利用專業爬蟲的強大功能，Google 增強了對網路的理解和索引能力，旨在為您提供更高品質、更相關的搜尋結果。
 
 
-## **Selenium**
+- 新聞爬蟲
 
-- Selenium 是一個開源的自動化測試工具和框架，用於測試 Web 應用系統的功能和 UI 畫面。允許開發者編寫腳本來模擬 User 與 Web Browser 的互動。從自動執行一系列的操作，例如點擊按扭，填寫表單及提交等，來測試 Web 的應用系統功能是否正常。
+  一個專門的爬蟲程式以新聞網站的內容為目標並對其進行索引，重點關注文章和時事。這個工具被恰當地命名為“新聞爬蟲”，它有助於用最新資訊填充和更新 Google 新聞。
 
-- 在使用**Selenium**前，需要先從 [Chrome for Testing availability](https://googlechromelabs.github.io/chrome-for-testing/)找尋對應自己設備的driver，而後透過 WebDriver，才可以打開瀏覽器，進行模擬 User 操作等。
+
+- 圖片爬蟲
+
+  圖像爬蟲深入互聯網，為Google搜尋引擎發現和組織迷人的圖像。它的唯一目的是根據圖片的相關性和卓越品質來定位和分類圖片，確保只有最佳視覺效果才能進入搜尋結果，從而改善 Google 圖片搜尋。
+
+
+- 影片爬蟲
+
+  影片爬蟲是專門在網路上搜尋影片內容的機器人。他們從影片中提取所有重要的細節，如標題、描述和標籤。這意味著 Google 可以在您搜尋時向您呈現真正相關、全面且高品質的影片。  
+
+## 參考文獻
+- [americaneagle](https://www.americaneagle.com/insights/blog/post/what-is-googlebot-crawler---how-does-it-work)
  
+- [CLOUDFLARE](https://www.cloudflare.com/zh-tw/learning/bots/what-is-a-web-crawler/)
 
-### Selenium + Python 搭配模組
+# 爬蟲的工作原理
 
-| 模組 | 用途               |
-| --- |------------------|
-| **BeautifulSoup** | 用來解析 HTML 結構與內容  |
-| **Pandas** | 對爬取資料進行結構化處理     |
-| **asyncio** | 搭配異步項目提高效率       |
-| **logging** | 管理爬蟲過程中的日誌與錯誤輸出  |
-| **SQLite / MySQL** | 儲存資料庫型爬蟲結果       |
+爬蟲的基本流程大致如下：
+
+1. **發送請求**：爬蟲向網站發送HTTP請求。
+2. **獲取頁面內容**：接收到HTML頁面或其他格式的資料。
+3. **解析頁面**：解析HTML結構，提取目標資料（如圖片、文章、鏈接等）。
+4. **儲存數據**：將提取到的資料儲存到本地或數據庫中，將我要的東西記錄下來。
+5. **迭代抓取**：如果網站包含多頁內容，爬蟲會進一步訪問其他頁面，直到抓取完所有需要的資料。
+
+- 迭代抓取的話會像是網頁總共有兩頁，抓完第一頁後，持續的往第二頁抓，直到沒有為止。
+
+   ### [影片介紹](https://www.youtube.com/watch?v=BdRjutf8K0c)
+
+# 如何編寫爬蟲？
+
+### 1.安裝必要的工具
+
+要寫爬蟲，首先需要安裝一些常用的Python庫：
+
+```bash
+pip install requests beautifulsoup4
+```
+
+- **requests**：用來發送HTTP請求。
+- **BeautifulSoup**：用來解析HTML頁面。
+
+### 2. 編寫簡單的爬蟲
+
+```python
+import requests
+from bs4 import BeautifulSoup
+
+# 發送請求
+url = "https://example.com"
+response = requests.get(url)
+
+# 解析HTML頁面
+soup = BeautifulSoup(response.text, 'html.parser')
+
+# 提取資料
+title = soup.title.text
+print(f"頁面標題: {title}")
+```
 
 
+### 3.頁面解析技巧
 
-# 次要函式庫
-### BeautifulSoup 
-Beautiful Soup是Python中用來解析HTML、XML標籤文件的模組，並能修復含有未閉合標籤等錯誤的文件（此種文件常被稱為tag soup）；解析後會為這個頁面建立一個BeautifulSoup物件，這個物件中包含了整個頁面的結構樹，透過這個BeautifulSoup物件的結構樹，就可以輕鬆的提取頁面內任何有興趣的資料了。
+在爬蟲中，解析HTML結構是一個關鍵步驟。你可以使用**CSS選擇器**或**XPath**來精確定位和提取你需要的資料。
+
+例如：
+
+```python
+# 使用CSS選擇器選擇文章標題
+article_title = soup.select('h1.article-title')[0].text
+```
+
+### 4. 爬蟲常見挑戰
+
+- **反爬蟲技術**：許多網站會使用反爬蟲措施，如IP封鎖、驗證碼等來防止自動化訪問。
+- **法律與道德問題**：在進行網絡爬取時，需要遵循相關法律法規及網站的使用條款，避免侵犯版權或濫用數據。
+- **效率問題**：大規模抓取時可能會面臨性能瓶頸，如請求速度過快導致伺服器過載。
 
 
-| 功能                  | 說明                             |
-|---------------------|--------------------------------|
-| 解析 HTML/XML         | 把一整串原始碼解析成樹狀結構                 |
-| 查找標籤（Tag）           | 使用 `.find()`、`.find_all()` 等方法 |
-| 選擇器查詢（CSS Selector） | 用 `.select()` 快速鎖定特定元素         |
-| 讀取文字與屬性             | 拿到 `.text`、`tag['href']` 等內容   |
+### 5. 爬蟲工具與框架
 
+### 5.1 Scrapy
 
+Scrapy 是一個強大的Python爬蟲框架，適合進行大規模數據抓取。
 
+```bash
+pip install scrapy
+```
+
+Scrapy 提供了更多的功能，如異步請求、數據儲存、數據過濾等。
+
+### 5.2 Selenium
+
+Selenium 是一個自動化測試工具，可以用來操作瀏覽器進行網頁抓取，適用於處理JavaScript渲染的動態網頁。
+
+```bash
+pip install selenium
+```
 
 
 ## **功能特點**
@@ -144,122 +208,77 @@ python my_selenium.py
 scrapy crawl go
 ```
 
-# 爬蟲介紹
-爬蟲是屬於自動化的程式，目的是在抓取網站上的資料。通常爬蟲會模擬用戶的瀏覽行為，通過HTTP請求從網站獲取HTML頁面，並分析其內容以提取有用的信息。
-
-### 常見用途：
-搜尋引擎像是 Google、Bing 和 Yahoo 等應該是網絡爬蟲最成功的應用了，它們透過爬蟲在網際網路中收集優質的網站與內容，所以當用戶在搜尋引擎上搜尋關鍵字時，就能夠找出相關的網站資料
-除了搜尋引擎的爬蟲，也有其他很多的應用，以下舉例幾個常見的用途
-- 爬遍所有飯店與航空公司網站，輕鬆找出最划算的房間與機票
-- 定期監測特定商品價格，當有降價時，即時通知價格
-- 從股票資訊網站中獲取股價、月報、財報等用來追蹤股價趨勢
-- 從基金網站中獲取所有基金資料，用來分析最優質的投資項目
-- 每天自動下載各個財金新聞網站的標題與內容，快速掌握最新消息
-- 批次下載 YouTube 播放清單影片
-
-
-
-# 爬蟲的工作原理
-
-爬蟲的基本流程大致如下：
-
-1. **發送請求**：爬蟲向網站發送HTTP請求。
-2. **獲取頁面內容**：接收到HTML頁面或其他格式的資料。
-3. **解析頁面**：解析HTML結構，提取目標資料（如圖片、文章、鏈接等）。
-4. **儲存數據**：將提取到的資料儲存到本地或數據庫中。
-5. **迭代抓取**：如果網站包含多頁內容，爬蟲會進一步訪問其他頁面，直到抓取完所有需要的資料。
-
-
-
-# 如何編寫爬蟲？
-
-### 1.安裝必要的工具
-
-要寫爬蟲，首先需要安裝一些常用的Python庫：
-
-```bash
-pip install requests beautifulsoup4
-```
-
-- **requests**：用來發送HTTP請求。
-- **BeautifulSoup**：用來解析HTML頁面。
-
-### 2. 編寫簡單的爬蟲
-
-```python
-import requests
-from bs4 import BeautifulSoup
-
-# 發送請求
-url = "https://example.com"
-response = requests.get(url)
-
-# 解析HTML頁面
-soup = BeautifulSoup(response.text, 'html.parser')
-
-# 提取資料
-title = soup.title.text
-print(f"頁面標題: {title}")
-```
-
-### 3.頁面解析技巧
-
-在爬蟲中，解析HTML結構是一個關鍵步驟。你可以使用**CSS選擇器**或**XPath**來精確定位和提取你需要的資料。
-
-例如：
-
-```python
-# 使用CSS選擇器選擇文章標題
-article_title = soup.select('h1.article-title')[0].text
-```
-
-### 4. 爬蟲常見挑戰
-
-- **反爬蟲技術**：許多網站會使用反爬蟲措施，如IP封鎖、驗證碼等來防止自動化訪問。
-- **法律與道德問題**：在進行網絡爬取時，需要遵循相關法律法規及網站的使用條款，避免侵犯版權或濫用數據。
-- **效率問題**：大規模抓取時可能會面臨性能瓶頸，如請求速度過快導致伺服器過載。
-
-
-### 5. 爬蟲工具與框架
-
-### 5.1 Scrapy
-
-Scrapy 是一個強大的Python爬蟲框架，適合進行大規模數據抓取。
-
-```bash
-pip install scrapy
-```
-
-Scrapy 提供了更多的功能，如異步請求、數據儲存、數據過濾等。
-
-### 5.2 Selenium
-
-Selenium 是一個自動化測試工具，可以用來操作瀏覽器進行網頁抓取，適用於處理JavaScript渲染的動態網頁。
-
-```bash
-pip install selenium
-```
-
-
-
-
 
 # 核心模組說明
 
-## **Request**、**Selenium**
+## **Request**
+
+Python 的 Requests 庫被創建用於使 HTTP 請求更加簡單和人性化。請求複雜性抽象變為簡單的 API，可以專注於與網絡上的服務和數據進行交互。 無論抓取網頁和 REST API 互動，還是向伺服器發送數據，Requests 庫都能提供需求。 
+最常見用於 **Python** 的HTTP 請求（GET、POST、PUT、DELETE 等）
 
 
-| 模組路徑                              | 功能簡述                                                                              |
-|-----------------------------------|-----------------------------------------------------------------------------------|
-| `my_request.py` 、`my_selenium.py` | 主執行程式，負責初始化流程與整合各模組                                                               |
-| `scrapers/professor_scraper.py`   | 負責資料抓取邏輯，包含多頁處理、URL 發送等                                                           |
-| `parsers/professor_parser.py`     | 處理 HTML 結構的解析，將教授資訊轉為字典                                                           |
-| `utils/async_utils.py`            | 定義 `@async_request` 裝飾器，讓同步函式支援非同步操作                                              |
-| `utils/http_utils.py`             | 封裝 HTTP 請求邏輯，包含 User-Agent 模擬與錯誤分類                                                |
-| `utils/logger.py`                 | 日誌模組與`Request`模組的結合可以幫助開發者在發送 HTTP 請求、處理響應過程中，並根據設置的日誌級別進行靈活的日誌管理，從而提升除錯與運行監控的能力。 |
-| `config/setting.py`               | 控制爬蟲參數，如網址、頁數、超時、輸出路徑等                                                            |
+| 元件名                    | 功能                                 |
+|------------------------|------------------------------------|
+| **Spider**             | 撰寫的爬蟲邏輯，告訴 Scrapy 要爬哪些頁面、要抓什麼資料    |
+| **Item**               | 結構化資料容器（像是 Python 字典）              |
+| **Pipeline**           | 對資料做清洗、驗證、儲存等操作                    |
+| **Middleware**         | 請求與回應的中介處理，例如換 IP、換 UA、處理 cookie 等 |
 
+## **Selenium**
+Selenium 是一個開源的自動化測試工具和框架，用於測試 Web 應用系統的功能和 UI 畫面。允許開發者編寫腳本來模擬 User 與 Web Browser 的互動。從自動執行一系列的操作，例如點擊按扭，填寫表單及提交等，來測試 Web 的應用系統功能是否正常。
 
+在使用**Selenium**前，需要先從 [Chrome for Testing availability](https://googlechromelabs.github.io/chrome-for-testing/)下載，確保版本的對應性，以防錯誤。
+
+| 元件名                | 功能              |
+|--------------------|-----------------|
+| **BeautifulSoup**  | 用來解析 HTML 結構與內容 |
+| **asyncio**        | 搭配異步項目提高效率      |
+| **logging**        | 管理爬蟲過程中的日誌與錯誤輸出 |
+| **SQLite / MySQL** | 儲存資料庫型爬蟲結果      |
+
+## **Scrapy**
+
+Scrapy是一套開放原始碼框架，它已經定義了完整的爬蟲流程與模組，透過這個框架可以快速、簡單的幫助我們抓取HTML頁面、取得API回傳的資料，甚至於可以撰寫非同步網頁爬蟲。像是從網站中自動擷取結構化資料，如商品資訊、新聞文章、學術資料、社群貼文等等。
+
+| 元件名                    | 功能                                 |
+|------------------------|------------------------------------|
+| **Spider**             | 撰寫的爬蟲邏輯，告訴 Scrapy 要爬哪些頁面、要抓什麼資料    |
+| **Item**               | 結構化資料容器（像是 Python 字典）              |
+| **Pipeline**           | 對資料做清洗、驗證、儲存等操作                    |
+| **Middleware**         | 請求與回應的中介處理，例如換 IP、換 UA、處理 cookie 等 |
+
+## **BeautifulSoup** 
+Beautiful Soup是Python中用來解析HTML、XML標籤文件的模組，並能修復含有未閉合標籤等錯誤的文件（此種文件常被稱為tag soup）；解析後會為這個頁面建立一個BeautifulSoup物件，這個物件中包含了整個頁面的結構樹，透過這個BeautifulSoup物件的結構樹，就可以輕鬆的提取頁面內任何有興趣的資料了。
+
+| 功能                  | 說明                             |
+|---------------------|--------------------------------|
+| 解析 HTML/XML         | 把一整串原始碼解析成樹狀結構                 |
+| 查找標籤（Tag）           | 使用 `.find()`、`.find_all()` 等方法 |
+| 選擇器查詢（CSS Selector） | 用 `.select()` 快速鎖定特定元素         |
+| 讀取文字與屬性             | 拿到 `.text`、`tag['href']` 等內容   |
+
+## **Request**、**Selenium**、**Scrapy**、**BeautifulSoup**  功能比較表
+
+| 模組            | 主要用途                                 | 優點                       | 缺點                       | 適用場景                |
+|---------------|--------------------------------------|--------------------------|--------------------------|---------------------|
+| Requests      | 發送 HTTP 請求並獲取網頁內容（使用 GET 和 POST 抓資料） | 簡單、快速、輕量                 | 不支持動態網頁、JavaScript 渲染的內容 | 靜態網頁抓取              |
+| Selenium      | 自動化瀏覽器操作                             | 支持 JS 動態網頁，可以模擬用戶操作      | 速度較慢，資源消耗大               | 動態網頁抓取、需要與頁面交互時使用   |
+| Scrapy        | 大型網站爬蟲框架，支援爬取、解析、儲存等流程               | 結構完整、速度快、支持多執行緒與資料儲存流程控制 | 學習曲線稍高，對於簡單任務略顯複雜        | 大型專案、批量數據抓取、自動化爬蟲開發 |
+| BeautifulSoup | 解析 HTML/XML 結構，提取資料                  | 容易上手、語法簡單、適合處理靜態 HTML    | 處理大量資料效能較低，不支援動態渲染       | 靜態網頁解析、小型資料抽取任務     |
+
+## 專案程式表格解析
+
+# **Request**、**Selenium**
+
+| 模組路徑                              | 功能簡述                                                                            |
+|-----------------------------------|---------------------------------------------------------------------------------|
+| `my_request.py` 、`my_selenium.py` | 主執行程式，負責初始化流程與整合各模組                                                             |
+| `scrapers/professor_scraper.py`   | 負責資料抓取邏輯，包含多頁處理、URL 發送等                                                         |
+| `parsers/professor_parser.py`     | 處理 HTML 結構的解析，將教授資訊轉為字典                                                         |
+| `utils/async_utils.py`            | 定義 `@async_request` 裝飾器，讓同步函式支援非同步操作                                            |
+| `utils/http_utils.py`             | 封裝 HTTP 請求邏輯，包含 User-Agent 模擬與錯誤分類                                              |
+| `utils/logger.py`                 | 日誌模組與`Request`模組的結合可以幫助開發者在發送 HTTP 請求、處理響應過程中，並根據設置的日誌級別進行靈活的輸出，從而提升除錯與運行監控的能力。 |
+| `config/setting.py`               | 控制爬蟲參數，如網址、頁數、超時、輸出路徑等                                                          |
 
 ## **Scrapy**
 
@@ -271,7 +290,6 @@ pip install selenium
 | `scrappp/pipelines.py`   | 處理與儲存爬取資料的模組，定義好後透過 `process_item()`執行資料清洗或輸出。     |
 | `scrappp/settings.py`    | 控制爬蟲行為、資料流程、效能優化與功能擴展的設定檔，是讓你的爬蟲穩定、安全、高效運行的關鍵配置地。  |
 
-
 ## **SQLite**
 
 | 函數名稱                                   | 功能說明                | 影響資料表                                                   | 額外提醒           |
@@ -279,10 +297,6 @@ pip install selenium
 | `fetch_professor_data(professor_name)` | 查詢特定教授的基本資料、經歷與研究領域 | `professor_data`, `experience`, `research_field`        | 若查無資料會提示       |
 | `browse_all_data()`                    | 瀏覽所有教授資料與相關表格內容     | 全部表格 (`professor_data`, `experience`, `research_field`) | 僅查詢、不更動資料      |
 | `clear_database()`                     | 刪除所有資料表（清空整個資料庫）    | 全部表格                                                    | 資料刪除後**無法還原**  |
-
-
-
-
 
 
 # 資料解析方式
@@ -356,19 +370,5 @@ pip install selenium
   - `HTTPError`：伺服器錯誤
   - `RequestException`：提供明確的錯誤類別 方便使用者進行錯誤補捉
   - `UnknownError`：未知例外狀況
-# 輸出資料結構
 
-爬取結果將儲存為 `.json` 檔案，結構如下：
-
-```json
-[
-  {
-    "姓名": None, "職稱": None,
-    "學歷": None, "經歷": list[str],
-    "研究領域": list[str], "email": None,
-    "辦公室": None, "Office hour": None
-  
-  }
-] 
-```
 
