@@ -28,9 +28,9 @@
 
 因此，對於網路爬蟲的通俗定義上，就是:「一個自動化的網路程式用來從網路上獲取內容，專注在探索」。
 
-### "web crawer" vs "web spider" vs "web scraper"
+### "web crawler" vs "web spider" vs "web scraper"
 
-對於 "web spider" 來說，其意義等同於 "web crawer"，因為網路爬蟲主要在全球資訊網 ( World Wide Web : www ) 上游走、爬巡，如同蜘蛛在蜘蛛網上爬行一樣。
+對於 "web spider" 來說，其意義等同於 "web crawler"，因為網路爬蟲主要在全球資訊網 ( World Wide Web : www ) 上游走、爬巡，如同蜘蛛在蜘蛛網上爬行一樣。
 
 那麼 "scraping" 是什麼?
 > **the activity of taking information from a website or computer screen and putting it into spreadsheet (= an electronic document in which information is arranged in rows and columns and can be used in calculations) on a computer.**
@@ -40,22 +40,43 @@
 
 ### 小總結
 
-對於 "web scraper" 而言，他強調的是數據的抓取，與 "web crawer" 最大的不同就是:
-- "web crawer" 專注於探索 ( discover ) ，通常用於搜尋引擎，詳細可以跳轉道 [爬蟲的用途與運作方式](##爬蟲的用途與運作方式)。
+對於 "web scraper" 而言，他強調的是數據的抓取，與 "web crawler" 最大的不同就是:
+- "web crawler" 專注於探索 ( discover ) ，通常用於搜尋引擎，詳細可以跳轉道 [爬蟲的用途與運作方式](##爬蟲的用途與運作方式)。
 - "web scraper" 專注於提取資料，通常會儲存以便於後續的分析 ( 非必要 )。
 
 想要了解更多這兩者之間的差異，有興趣你可以參考[此影片](https://www.youtube.com/watch?v=rcaCxMXKysY)，或者[這篇文章](https://soax.com/blog/web-crawling-vs-web-scraping)。
 
 ## 爬蟲的用途與運作方式
 
-爬蟲的用途最常見是用於搜集資料方面，在這個科技盛行的時代裡，所創造出的資料量也會越來越龐大，搜尋資料時難免會覺得麻煩。這個時候來使用爬蟲爬取時，只需要做好輸入的指令和目標網頁，就可以爬取到關於目標網頁所有的內容，這就是爬蟲的厲害之處。
+剛開始對於"crawler" 的用途，我蠻好奇平常會在生活上麼時候會去使用到？
 
-運作方式我們可以用種子來當作舉例，假如我今天想在PTT版尋找打工資訊，而網頁的網址就像種子一樣，透過種子網址我們可以取得到網頁資料，爬蟲可以從文章列表中取得到每篇文章的種子，然後我們可以限定在所想要的打工地區，接著再透過種子連接到每篇文章，接著我們一樣可以透過設計的規則來取得像是時薪，而取得到的時薪就是我們這次透過爬蟲所取得到的產物喔～。
+結果令我蠻震驚的，我們居然每天都會去使用到這些網站：
+- Googlebot, the crawler for Google’s search engine
+- Bingbot, Microsoft’s search engine crawler
+- Amazonbot, the Amazon web crawler
+- DuckDuckBot, the crawler for the search engine DuckDuckGo
+- YandexBot, the crawler for the Yandex search engine
+- Baiduspider, the web crawler for the Chinese search engine Baidu
+- Slurp, the web crawler for Yahoo
 
+這些網站都是平時，我們會去使用的到的，一開始會認為說爬蟲聽起來蠻抽象的，但實際去了解，其實他已經存在於你的生活中了
+
+
+##### 本專案中我以 "web scraper" 為主，而 "scraper" 在抓取時它是如何**運行**的呢？
+
+![scraper運作圖](https://www.promptcloud.com/wp-content/uploads/2023/09/image.png.webp)
+
+首先會向 "scraper" 提供一個統一網址 (URL)，然後 "scraper" 會載入該 URL。 "scraper" 會載入與該頁面相關的所有 HTML 程式碼。對於進階 "web scrapers" 來說，它們可以呈現網站上的所有內容，包括 JavaScript 和層疊樣式表 (CSS) 元素。
+然後，"scraper" 會提取資料。它可以被編程來提取網站的所有資料或僅提取想要的資料。在許多情況下，這關乎我們是如何去設定所要的目標資訊，例如價位資訊。
+最後一步是 "web scraper" 將蒐集到的資料以使用者可用的方式輸出。這可能在 CSV 檔案中或作為 Excel 電子表格。一些比較進階的 "web scrapers" 可以輸出其他格式，例如 JSON，它可以與應用程式介面 (API) 整合。
+
+- https://www.promptcloud.com/blog/a-complete-guide-to-web-scraping/
+- https://www.fortinet.com/resources/cyberglossary/web-scraping
+- https://careerfoundry.com/en/blog/data-analytics/web-scraping-guide/#what-is-web-scraping-used-for
+- https://www.akamai.com/glossary/what-is-a-web-crawler
 
 ## 參考資料
 - https://www.reddit.com/r/explainlikeimfive/comments/1cj58cl/eli5_what_are_web_crawlers_and_what_are_they_used/?rdt=49422
 - https://research.aimultiple.com/web-crawler/
 - https://soax.com/blog/web-crawling-vs-web-scraping
-- https://soax.com/blog/web-crawling-vs-web-scraping
-- https://www.cloudflare.com/zh-tw/learning/bots/what-is-a-web-crawler/
+
