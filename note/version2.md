@@ -48,10 +48,14 @@
 
 ## 爬蟲的用途與運作方式
 
-<!-- 撰寫中... -->
+爬蟲的用途最常見是用於搜集資料方面，在這個科技盛行的時代裡，所創造出的資料量也會越來越龐大，搜尋資料時難免會覺得麻煩。這個時候來使用爬蟲爬取時，只需要做好輸入的指令和目標網頁，就可以爬取到關於目標網頁所有的內容，這就是爬蟲的厲害之處。
+
+運作方式我們可以用種子來當作舉例，假如我今天想在PTT版尋找打工資訊，而網頁的網址就像種子一樣，透過種子網址我們可以取得到網頁資料，爬蟲可以從文章列表中取得到每篇文章的種子，然後我們可以限定在所想要的打工地區，接著再透過種子連接到每篇文章，接著我們一樣可以透過設計的規則來取得像是時薪，而取得到的時薪就是我們這次透過爬蟲所取得到的產物喔～。
+
 
 ## 參考資料
 - https://www.reddit.com/r/explainlikeimfive/comments/1cj58cl/eli5_what_are_web_crawlers_and_what_are_they_used/?rdt=49422
 - https://research.aimultiple.com/web-crawler/
 - https://soax.com/blog/web-crawling-vs-web-scraping
 - https://soax.com/blog/web-crawling-vs-web-scraping
+- https://www.cloudflare.com/zh-tw/learning/bots/what-is-a-web-crawler/
