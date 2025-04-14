@@ -10,7 +10,7 @@ class ProfessorParser:
     """Professor Information Parser"""
     
     @staticmethod
-    def parse_html(html: str) -> list[dict] :
+    def parse_html(html: str) -> list[dict]:
         """
         Parses the provided HTML content to extract information about professors.
         
@@ -121,7 +121,7 @@ class ProfessorParser:
         return info
     
     @staticmethod
-    def extract_email(html_string):
+    def extract_email(html_string) -> None:
         """
         Extracts and decodes the email address from the HTML content.
         
