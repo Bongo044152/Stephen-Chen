@@ -15,34 +15,34 @@
 - https://en.wikipedia.org/wiki/Web_crawler
 
 **劍橋辭典:**
-> **[web crawler](https://dictionary.cambridge.org/zht/%E8%A9%9E%E5%85%B8/%E8%8B%B1%E8%AA%9E-%E6%BC%A2%E8%AA%9E-%E7%B9%81%E9%AB%94/crawler) -> [a crawler](https://dictionary.cambridge.org/zht/%E8%A9%9E%E5%85%B8/%E8%8B%B1%E8%AA%9E-%E6%BC%A2%E8%AA%9E-%E7%B9%81%E9%AB%94/crawler): a computer program that automatically searches for information on the internet, usually in order to index (= list) internet content.**
+> **[web crawler](https://dictionary.cambridge.org/zht/%E8%A9%9E%E5%85%B8/%E8%8B%B1%E8%AA%9E-%E6%BC%A2%E8%AA%9E-%E7%B9%81%E9%AB%94/crawler) -> [a crawler](https://dictionary.cambridge.org/zht/%E8%A9%9E%E5%85%B8/%E8%8B%B1%E8%AA%9E-%E6%BC%A2%E8%AA%9E-%E7%B9%81%E9%AB%94/crawler): <mark>a computer program that automatically searches for information on the internet</mark>, usually in order to index (= list) internet content.**
 - https://dictionary.cambridge.org/zht/%E8%A9%9E%E5%85%B8/%E8%8B%B1%E8%AA%9E-%E6%BC%A2%E8%AA%9E-%E7%B9%81%E9%AB%94/crawler
 
 **CloudFlare:**
-> **網路爬蟲、蜘蛛或搜尋引擎機器人，會下載網際網路上所有的內容並製作相關索引。此類機器人旨在學習網站（幾乎）每個網頁，以便有必要時擷取資訊。稱此應用程式為「網路爬蟲」，是因為「爬行」是用於指代自動存取網站並透過軟體程式取得資料的技術詞彙。**
+> **網路爬蟲、蜘蛛或搜尋引擎機器人，會下載網際網路上所有的內容並製作相關索引。此類機器人旨在學習網站（幾乎）每個網頁，以便有必要時擷取資訊。稱此應用程式為「網路爬蟲」，是因為<mark>「爬行」是用於指代自動存取網站並透過軟體程式取得資料的技術詞彙</mark>。**
 - https://www.cloudflare.com/zh-tw/learning/bots/what-is-a-web-crawler/
 
 **Akamai:**
-> **A web crawler is an automated program or bot that systematically searches websites and indexes the content on them.**
+> **<mark>A web crawler is an automated program or bot</mark> that systematically searches websites and indexes the content on them.**
 - https://www.akamai.com/glossary/what-is-a-web-crawler
 
-因此，對於網路爬蟲的通俗定義上，就是:「一個自動化的網路程式用來從網路上獲取內容，專注在探索」。
+因此，對於網路爬蟲的通俗定義上，就是:**「<mark>一個自動化的網路程式用來從網路上獲取內容，專注在探索</mark>」**。
 
-### "web crawler" vs "web spider" vs "web scraper"
+### web crawer vs web spider vs web scraper
 
-對於 "web spider" 來說，其意義等同於 "web crawler"，因為網路爬蟲主要在全球資訊網 ( World Wide Web : www ) 上游走、爬巡，如同蜘蛛在蜘蛛網上爬行一樣。
+對於 web spider 來說，其意義等同於 web crawer，因為網路爬蟲主要在全球資訊網 ( World Wide Web : www ) 上游走、爬巡，如同蜘蛛在蜘蛛網上爬行一樣。
 
-那麼 "scraping" 是什麼?
-> **the activity of taking information from a website or computer screen and putting it into spreadsheet (= an electronic document in which information is arranged in rows and columns and can be used in calculations) on a computer.**
+那麼 scraping 是什麼?
+> **<mark>the activity of taking information from a website or computer screen</mark> and <mark>putting it into spreadsheet</mark> (= an electronic document in which information is arranged in rows and columns and can be used in calculations) <mark>on a computer.</mark>**
 - https://dictionary.cambridge.org/zht/%E8%A9%9E%E5%85%B8/%E8%8B%B1%E8%AA%9E-%E6%BC%A2%E8%AA%9E-%E7%B9%81%E9%AB%94/scraping
 
-對於 "web scraper"，我的解釋會是:「從特定的網站提取特定的資料，並儲存起來 ( 有利於後續的分析 )」。
+對於 web scraper，我的解釋會是:**「<mark>從特定的網站提取特定的資料，並儲存起來 ( 有利於後續的分析 )</mark>」**。
 
 ### 小總結
 
-對於 "web scraper" 而言，他強調的是數據的抓取，與 "web crawler" 最大的不同就是:
-- "web crawler" 專注於探索 ( discover ) ，通常用於搜尋引擎，詳細可以跳轉道 [爬蟲的用途與運作方式](##爬蟲的用途與運作方式)。
-- "web scraper" 專注於提取資料，通常會儲存以便於後續的分析 ( 非必要 )。
+對於 web scraper 而言，他強調的是數據的抓取，與 web crawer 最大的不同就是:
+- web crawer 專注於探索 ( discover ) ，通常用於搜尋引擎，詳細可以跳轉道 [爬蟲的用途與運作方式](##爬蟲的用途與運作方式)。
+- web scraper 專注於提取資料，通常會儲存以便於後續的分析 ( 非必要 )。
 
 想要了解更多這兩者之間的差異，有興趣你可以參考[此影片](https://www.youtube.com/watch?v=rcaCxMXKysY)，或者[這篇文章](https://soax.com/blog/web-crawling-vs-web-scraping)。
 
@@ -76,7 +76,9 @@
 - https://www.akamai.com/glossary/what-is-a-web-crawler
 
 ## 參考資料
+
+名詞解釋
+---
 - https://www.reddit.com/r/explainlikeimfive/comments/1cj58cl/eli5_what_are_web_crawlers_and_what_are_they_used/?rdt=49422
 - https://research.aimultiple.com/web-crawler/
 - https://soax.com/blog/web-crawling-vs-web-scraping
-
