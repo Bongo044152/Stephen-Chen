@@ -1,14 +1,17 @@
 # **期中報告**
 
-本項目為期中作業，利用 **爬蟲技術** 從 [亞洲大學資工系官網](https://csie.asia.edu.tw/zh_tw/associate_professors_2) 獲取每位教授的專長資訊，並將其存取下來。
+本項目為期中作業，利用 **爬蟲技術** 從 [亞洲大學資工系官網](https://csie.asia.edu.tw/zh_tw/TeacherIntroduction/Full_time_faculty) 獲取每位教授的專長資訊，並將其存取下來。
 
-## **功能特點**
-- **自動化**：爬取 **亞洲大學資工系** 教授的專長資訊，無需手動操作
-- **高效能**：使用 **異步處理** 提升爬取速度，減少等待時間
-- **可追蹤**：內建 **爬蟲運行日誌**，方便除錯與監控
-- **標準輸出**：數據以 **JSON 格式** 儲存，便於後續分析與應用
-- **規範化日誌輸出**：使用 **Python 的 logging 模組**，以標準格式輸出日誌至終端機
-- **將資料儲存到 SQLite**: 使用 **Python 的 sqlite3**，將資料儲存到簡易的資料庫中
+## 功能特點
+
+- **高效能爬取**：結合 Selenium 與 asyncio 非同步技術，有效提升爬取速度性  
+- **HTML 解析**：透過自製 ProfessorParser 模組，自動擷取教授頁面中的關鍵資訊  
+- **Email 解碼還原**：支援解析 JavaScript 混淆的email，還原聯絡資訊  
+- **模組化架構**：採用清晰的模組劃分（parsers、scrapers、utils 等），便於擴充與維護  
+- **資料儲存至 SQLite**：以 Python 的 sqlite3 將結構化資料安全儲存至本地資料庫  
+- **JSON 標準輸出**：同步輸出為 JSON 格式，利於後續資料分析與整合應用
+- **規範化日誌輸出**：使用 **Python 的 logging 模組**，以標準格式輸出日誌
+
 
 ## **儲存的資料格式**
 1. 終端機輸出 & json 文件: 資料主要以 json 的格式處存，其架構如下:
@@ -69,7 +72,7 @@ pip install -r requirements.txt
 > **注意! 這將會下載 64-bit 的版本**
 
 如果你有額外的需求 ( 例如不同的作業系統 )，可以自行下載: https://googlechromelabs.github.io/chrome-for-testing/
-  (記得根據 [setting 檔案](config\setting.py) 更改你的資料夾名稱)
+  (記得根據 [setting 檔案](config/setting.py) 更改你的資料夾名稱)
 
 ### **6. 執行爬蟲程式**
 1. 使用 request 實現:
@@ -84,5 +87,3 @@ python my_selenium.py
 ```bash
 scrapy crawl go
 ```
-
-# 爬蟲介紹
