@@ -1,141 +1,184 @@
-# 爬蟲介紹
-爬蟲是屬於自動化的程式，目的是在抓取網站上的資料。通常爬蟲會模擬用戶的瀏覽行為，通過HTTP請求從網站獲取HTML頁面，並分析其內容以提取有用的信息。
+# 網路爬蟲介紹
 
-## 常見用途：
-![Google bot](https://resources.americaneagle.com/aecom-blobs/images/default-source/blog-images/how-does-the-googlebot-crawler-work.png?sfvrsn=ce204b57_1)
-Googlebot 對於 SEO 至關重要，因為它們會「讀取」網頁並對其進行索引，以便可以根據搜尋者的查詢向其提供服務。 Googlebot 有多種類型，每種類型都有其特定的功能。
+隨著網際網路的迅速發展，網路上的資料量呈指數型成長。許多有價值的資訊往往分散在不同的網站上，若以人工方式收集這些資訊，不僅耗時耗力，也不具有效率。因此，透過自動化的 **Web Crawler** 技術來擷取特定網頁中的資料，已成為現代資料蒐集與分析中不可或缺的一環。
+
+## 什麼是網路爬蟲?
+
+當我嘗試搜尋這個問題，我意外的發現國際標準組織（如制定 IEEE 754 標準的機構）似乎並未對「網路爬蟲」這個術語提供一個如同底層技術標準般的統一定義。
+
+這可能是因為 Web crawler 和 Web scraper 比較偏向應用層面的實作策略或工程術語，而非像浮點數 (float)、JSON 或 TCP/IP 這類屬於基礎運算或數據格式的技術，因此缺乏如 IEEE 或 ISO 等標準組織的官方定義。
+
+因此，為了讓後續討論更加清晰，我們先參考幾個權威來源來理解「網路爬蟲」的普遍定義。
+
+### 名詞定義
+
+**wiki:**
+> **Web crawler, sometimes called a spider or spiderbot and often shortened to crawler, is an Internet bot that systematically browses the World Wide Web and that is typically operated by search engines for the purpose of Web indexing (web spidering).**
+- https://en.wikipedia.org/wiki/Web_crawler
+
+**劍橋辭典:**
+> **[web crawler](https://dictionary.cambridge.org/zht/%E8%A9%9E%E5%85%B8/%E8%8B%B1%E8%AA%9E-%E6%BC%A2%E8%AA%9E-%E7%B9%81%E9%AB%94/crawler) -> [a crawler](https://dictionary.cambridge.org/zht/%E8%A9%9E%E5%85%B8/%E8%8B%B1%E8%AA%9E-%E6%BC%A2%E8%AA%9E-%E7%B9%81%E9%AB%94/crawler): <mark>a computer program that automatically searches for information on the internet</mark>, usually in order to index (= list) internet content.**
+- https://dictionary.cambridge.org/zht/%E8%A9%9E%E5%85%B8/%E8%8B%B1%E8%AA%9E-%E6%BC%A2%E8%AA%9E-%E7%B9%81%E9%AB%94/crawler
+
+**CloudFlare:**
+> **網路爬蟲、蜘蛛或搜尋引擎機器人，會下載網際網路上所有的內容並製作相關索引。此類機器人旨在學習網站（幾乎）每個網頁，以便有必要時擷取資訊。稱此應用程式為「網路爬蟲」，是因為<mark>「爬行」是用於指代自動存取網站並透過軟體程式取得資料的技術詞彙</mark>。**
+- https://www.cloudflare.com/zh-tw/learning/bots/what-is-a-web-crawler/
+
+**Akamai:**
+> **<mark>A web crawler is an automated program or bot</mark> that systematically searches websites and indexes the content on them.**
+- https://www.akamai.com/glossary/what-is-a-web-crawler
+
+因此，對於網路爬蟲的通俗定義上，就是:**「<mark>一個自動化的網路程式用來從網路上獲取內容，專注在探索</mark>」**。
+
+### web crawler vs web spider vs web scraper
+
+對於 web spider 來說，其意義等同於 web crawer，因為網路爬蟲主要在全球資訊網 ( World Wide Web : www ) 上游走、爬巡，如同蜘蛛在蜘蛛網上爬行一樣。
+
+那麼 scraping 是什麼?
+> **<mark>the activity of taking information from a website or computer screen</mark> and <mark>putting it into spreadsheet</mark> (= an electronic document in which information is arranged in rows and columns and can be used in calculations) <mark>on a computer.</mark>**
+- https://dictionary.cambridge.org/zht/%E8%A9%9E%E5%85%B8/%E8%8B%B1%E8%AA%9E-%E6%BC%A2%E8%AA%9E-%E7%B9%81%E9%AB%94/scraping
+
+對於 web scraper，我的解釋會是:**「<mark>從特定的網站提取特定的資料，並儲存起來 ( 有利於後續的分析 )</mark>」**。
+
+### 小總結
+
+對於 web scraper 而言，他強調的是數據的抓取，與 web crawler 最大的不同就是:
+- web crawler 專注於探索 ( discover ) ，通常用於搜尋引擎，詳細可以跳轉道 [爬蟲的用途與運作方式](##爬蟲的用途與運作方式)。
+- web scraper 專注於提取資料，通常會儲存以便於後續的分析。
+
+想要了解更多這兩者之間的差異，有興趣你可以參考[此影片](https://www.youtube.com/watch?v=rcaCxMXKysY)，或者[這篇文章](https://soax.com/blog/web-crawling-vs-web-scraping)。
+
+## 爬蟲的用途與運作方式
+
+在理解了 Web crawler 與 Web scraper 的基本區別後，接下來我們將聚焦探討 Web crawler 的主要用途及其運作方式。
+
+## Web Crawler
+
+> **你知道嗎？**
+> 
+> 其實我們每天都在使用由爬蟲所提供的服務，只是你可能沒發現
+>
+> - Google 搜尋結果（Googlebot）
+> - Amazon 商品推薦（Amazonbot）
+> - DuckDuckGo 搜尋（DuckDuckBot）
+> - Yahoo、Baidu、Yandex⋯⋯
+>
+> 這些網站都是平時，我們會去使用的到的，一開始會認為說爬蟲聽起來蠻抽象的，但實際去了解，其實他已經存在於你的生活中了
+
+Web Crawler 的核心在於「探索 (Discover)」，最典型的應用就是搜尋引擎。我們將以 Google 的爬蟲 Googlebot 為例，來探討下面的兩個問題：
+1. Web Crawler 如何「探索 (Discover)」或發現新的網站?
+2. GoogleBot 是如何運作的?
+
+### 什麼是 GoogleBot
+
+Googlebot 正是 Web crawler 的一個典型實例。根據 Google 官方文件：
+> **<mark>Googlebot is the generic name for two types of web crawlers used by Google Search:</mark><ul><li>Googlebot Smartphone: a mobile crawler that simulates a user on a mobile device.<li>Googlebot Desktop: a desktop crawler that simulates a user on desktop.</ul>**
+- https://developers.google.com/search/docs/crawling-indexing/googlebot
+
+>**<mark>The program that does the fetching is called Googlebot (also known as a crawler, robot, bot, or spider).</mark> Googlebot uses an algorithmic process to determine which sites to crawl, how often, and how many pages to fetch from each site. Google's crawlers are also programmed such that they try not to crawl the site too fast to avoid overloading it. This mechanism is based on the responses of the site (for example, HTTP 500 errors mean "slow down").**
+- https://developers.google.com/search/docs/fundamentals/how-search-works
+
+> **<mark>The Googlebot crawler is a tool used by Google to discover and index web pages across the internet.</mark> It systematically scans websites, following links from one page to another, and gathers information about the content on each page. This information is then stored in Google’s index, making it accessible for search queries.**
+- https://www.americaneagle.com/insights/blog/post/what-is-googlebot-crawler---how-does-it-work
+
+總的來說，Googlebot 的主要目的是：
+1.  **探索 (Discover) / 發現新內容:** 發現網路上新的或更新的內容。
+2.  **建立索引 (Indexing):** 對抓取到的網頁內容進行分析、整理，並儲存到 Google 巨大的索引資料庫中，以便使用者搜尋時能快速匹配相關結果。
+3.  **監測網站變化：** 定期重新訪問已知網頁，檢查內容是否有更新或頁面是否仍然存在。
+
+### Web Crawler 的運作方式 (以 Googlebot 為例)
+
+以下是一張簡化的 Googlebot 運作流程圖：
+![googlebot_work_map](https://resources.americaneagle.com/aecom-blobs/images/default-source/blog-images/how-does-the-googlebot-crawler-work.png?sfvrsn=ce204b57_1)
+- [圖片來源](https://www.americaneagle.com/insights/blog/post/what-is-googlebot-crawler---how-does-it-work)
+
+#### Crawling Web Pages
+1. **發現 URL (URL Discovery):**
+> **Google must constantly look for new and updated pages and add them to its list of known pages. This process is called "URL discovery".** ( 節錄自[官方文件](https://developers.google.com/search/docs/fundamentals/how-search-works) )
+
+從已知的 URL 出發，透過掃描的方式獲取該網頁中存在的新的 URL ( 如果網站有更新之類的.. )。
+GoogleBot 會掃描頁面上的所有**連結 (Links)**，將找到的新 URL 添加到一個待訪問的清單（稱為「抓取佇列」）。
+
+註記: 我有好奇過第一個網頁是誰提供的? 經過與 ai 的討論，第一個網頁提交道 google 是以 site map 的形式，類似直接跟 google 說我提供了這些服務/可訪問頁面 之類的..。
+
+2. **請求與抓取 (Request & Crawling):**
+首先! 該網頁必須是可訪問的，有些 後端 ( 或稱伺服器 ) 會要求登入；後端實作登入在我的背景知識中一共有3種方式來確定你的訪問是許可的: **(1) jwt驗證**、**(2) session key驗證**、**(3) 第三方驗證--OAuth 2.0**。
+
+有些網站不想要被爬蟲騷擾，或撰寫 `robots.txt` 文件，這是一個後台提供的規則檔案，告知爬蟲哪些頁面可以訪問，哪些不可以，並沒有法規強制規定依定要遵守 `robots.txt`，沒錯你可以無視它!
+當然 GoogleBot 肯定是會遵守的。 ( 延伸閱讀: [如何避免被 GoogleBot 騷擾?](https://developers.google.com/search/docs/crawling-indexing/googlebot#blocking-googlebot-from-visiting-your-site) )
 
 
-- 移動爬蟲
+#### Analyze Page Content
+1. **處理與渲染 (Processing & Rendering):**
+就像我們平常使用瀏覽器瀏覽網頁那樣，如果你不知道網頁是如何被渲染到你的瀏覽器的? 有興趣可以翻閱[MDN - Parsing](https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/How_browsers_work#parsing) 與 [MDN - Render](https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/How_browsers_work#render)。
 
-  移動爬蟲的用途正如您所想！它專門針對行動友善內容，以確保 Google 為透過行動裝置存取網路的使用者提供相關且有用的搜尋結果。這反映出使用行動裝置上網的現像日益增多。
+> **<mark>During the crawl, Google renders the page and runs any JavaScript it finds using a recent version of Chrome, similar to how your browser renders pages you visit.</mark> Rendering is important because websites often rely on JavaScript to bring content to the page, and without rendering Google might not see that content.** ( 節錄自[官方文件](https://developers.google.com/search/docs/fundamentals/how-search-works) )
 
+#### Store in the Index
+1. **索引 (Indexing):**
+> **<mark>After a page is crawled, Google tries to understand what the page is about. This stage is called indexing and it includes processing and analyzing the textual content and key content tags and attributes, such as \<title> elements and alt attributes, images, videos, and more.</mark>** ( 節錄自[官方文件](https://developers.google.com/search/docs/fundamentals/how-search-works#indexing) )
 
-- 桌面爬蟲
+正如[官方文件](https://developers.google.com/search/docs/fundamentals/how-search-works#indexing)所述， GoogleBot 沒辦法知道這個網頁是什麼? 因此他會開始分析:
 
-  桌面爬蟲旨在模擬傳統桌面網路瀏覽器的視圖。這使得 Googlebot 能夠以類似於桌面用戶體驗的方式理解和索引網頁，確保針對較大螢幕優化的內容和佈局得到正確索引。
+1. 首先 Google 會解析 HTML 並且嘗試性的修復它遇到的問題 ( 對於 HTML，可能是語法錯誤 )
+2. 會檢查這個東西是否重複存在過
+3. 儲存到 Google 龐大的**索引資料庫**中，使得 Google 能夠在毫秒之間從數萬億個網頁中找到與用戶搜尋查詢最相關的結果。 ( 具體存了什麼我也不知道! )
 
+#### Ranking Algorithms
 
-- 專用爬蟲
+> **真正的魔法就發生在這一步。搜尋引擎演算法分析索引的網頁以確定其與特定搜尋查詢的相關性和價值。關鍵字使用、內容品質、反向連結和用戶參與度等因素在決定頁面在搜尋結果中的排名方面起著至關重要的作用。** ( 引用自[Understanding the search engines](https://medium.com/@anupama.pathirage/understanding-the-search-engines-88fbef0f0ba6) )
 
-  Googlebot 使用專門的爬蟲從特定類型的網站和內容收集資訊。從新聞文章到圖片、影片和本地商業列表，這些爬蟲旨在深入挖掘每個領域。透過利用專業爬蟲的強大功能，Google 增強了對網路的理解和索引能力，旨在為您提供更高品質、更相關的搜尋結果。
+想了解更多細節，參考[官方資訊](https://developers.google.com/search/docs/fundamentals/how-search-works)或者[官方影片](https://www.youtube.com/playlist?list=PLKoqnv2vTMUN83JWBNM6MoBuBcyqhFNY3)。
 
+### 延伸考論：SEO 最佳化
 
-- 新聞爬蟲
+了解爬蟲的運作方式，對於網站管理者進行「搜尋引擎優化 (Search Engine Optimization, SEO)」至關重要。
+透過優化網站結構、內容品質、載入速度和技術細節 (如正確使用 robots.txt、提交 Sitemap)，可以幫助爬蟲更有效地發現、抓取和索引頁面，進而可能提升網站在搜尋結果中的自然排名。
 
-  一個專門的爬蟲程式以新聞網站的內容為目標並對其進行索引，重點關注文章和時事。這個工具被恰當地命名為“新聞爬蟲”，它有助於用最新資訊填充和更新 Google 新聞。
+## Web Scraper
 
+Web Scraper 的核心在於「擷取（Retrieve）」，最典型的應用就是分析資料。
 
-- 圖片爬蟲
+主要用於包括電子商務智慧、品牌監控和市場研究....，通常會存取資料，以便於日後分析、比較。
 
-  圖像爬蟲深入互聯網，為Google搜尋引擎發現和組織迷人的圖像。它的唯一目的是根據圖片的相關性和卓越品質來定位和分類圖片，確保只有最佳視覺效果才能進入搜尋結果，從而改善 Google 圖片搜尋。
+本專案目標是要去亞大資工的網頁爬取教授的資料，符合 Web Scraper 的主要特徵，也就是「擷取（Retrieve）」。
 
+### **Scraper** 它是如何**運行**的呢？
 
-- 影片爬蟲
+![scraper運作圖](https://www.promptcloud.com/wp-content/uploads/2023/09/image.png.webp)
+- [圖片來源](https://www.promptcloud.com/blog/a-complete-guide-to-web-scraping/)
 
-  影片爬蟲是專門在網路上搜尋影片內容的機器人。他們從影片中提取所有重要的細節，如標題、描述和標籤。這意味著 Google 可以在您搜尋時向您呈現真正相關、全面且高品質的影片。  
+#### 1&2&3. 獲取 URL: 使用 pyhton 的 request 等工具，可以向網頁發起 HTTP 請求，以獲取網頁 ( HTML )
 
-## 參考文獻
-- [americaneagle](https://www.americaneagle.com/insights/blog/post/what-is-googlebot-crawler---how-does-it-work)
- 
-- [CLOUDFLARE](https://www.cloudflare.com/zh-tw/learning/bots/what-is-a-web-crawler/)
+我們向目標網址: https://csie.asia.edu.tw/zh_tw/TeacherIntroduction/Full_time_faculty 發起網路 http 的 GET 請求。
 
-# 爬蟲的工作原理
+註記: 我們不需要網路代理，直接發起請求即可。
+#### 4. 使用 BeautifulSoup 去定位 HTML 元素，並且解析訊息 
+( 這個步驟相當於 Scraper 重混亂訊息中，或許可利用的訊息可以是教授的資料、演唱會門票價格、圖書館營業時間等等 )
 
-爬蟲的基本流程大致如下：
+在我們的專案中，先是使用
+`<ul class="i-member-profile-list" data-list="profile_data" data-level="3">`
+來定位每個教授，再逐一過濾 `<li>` 標籤。
 
-1. **發送請求**：爬蟲向網站發送HTTP請求。
-2. **獲取頁面內容**：接收到HTML頁面或其他格式的資料。
-3. **解析頁面**：解析HTML結構，提取目標資料（如圖片、文章、鏈接等）。
-4. **儲存數據**：將提取到的資料儲存到本地或數據庫中，將我要的東西記錄下來。
-5. **迭代抓取**：如果網站包含多頁內容，爬蟲會進一步訪問其他頁面，直到抓取完所有需要的資料。
+#### 5. 將獲取的資料進行清洗
+如果是字串的話，可以進行依些訊息優化，例如演唱會門票的是`$1000`，可以去掉`$`，只保留`1000`。
 
-- 迭代抓取的話會像是網頁總共有兩頁，抓完第一頁後，持續的往第二頁抓，直到沒有為止。
+<!-- 例如我們去除了 "姓名:" -->
 
-   ### [影片介紹](https://www.youtube.com/watch?v=BdRjutf8K0c)
+#### 6. 將資料進行彙整
+以演唱會為例，其資料可以整理成json格式:
 
-# 如何編寫爬蟲？
-
-### 1.安裝必要的工具
-
-要寫爬蟲，首先需要安裝一些常用的Python庫：
-
-```bash
-pip install requests beautifulsoup4
+```json
+{
+    "prize": 1000,
+    "date": "2025.4.16",
+    "singer":"周杰倫"
+}
 ```
 
-- **requests**：用來發送HTTP請求。
-- **BeautifulSoup**：用來解析HTML頁面。
+在本專案中，我們將資訊整理成如下格式，方便後續整理:
 
-### 2. 編寫簡單的爬蟲
-
-```python
-import requests
-from bs4 import BeautifulSoup
-
-# 發送請求
-url = "https://example.com"
-response = requests.get(url)
-
-# 解析HTML頁面
-soup = BeautifulSoup(response.text, 'html.parser')
-
-# 提取資料
-title = soup.title.text
-print(f"頁面標題: {title}")
-```
-
-
-### 3.頁面解析技巧
-
-在爬蟲中，解析HTML結構是一個關鍵步驟。你可以使用**CSS選擇器**或**XPath**來精確定位和提取你需要的資料。
-
-例如：
-
-```python
-# 使用CSS選擇器選擇文章標題
-article_title = soup.select('h1.article-title')[0].text
-```
-
-### 4. 爬蟲常見挑戰
-
-- **反爬蟲技術**：許多網站會使用反爬蟲措施，如IP封鎖、驗證碼等來防止自動化訪問。
-- **法律與道德問題**：在進行網絡爬取時，需要遵循相關法律法規及網站的使用條款，避免侵犯版權或濫用數據。
-- **效率問題**：大規模抓取時可能會面臨性能瓶頸，如請求速度過快導致伺服器過載。
-
-
-### 5. 爬蟲工具與框架
-
-### 5.1 Scrapy
-
-Scrapy 是一個強大的Python爬蟲框架，適合進行大規模數據抓取。
-
-```bash
-pip install scrapy
-```
-
-Scrapy 提供了更多的功能，如異步請求、數據儲存、數據過濾等。
-
-### 5.2 Selenium
-
-Selenium 是一個自動化測試工具，可以用來操作瀏覽器進行網頁抓取，適用於處理JavaScript渲染的動態網頁。
-
-```bash
-pip install selenium
-```
-
-
-## **功能特點**
-- **自動化**：爬取 **亞洲大學資工系** 教授的專長資訊，無需手動操作
-- **高效能**：使用 **異步處理** 提升爬取速度，減少等待時間
-- **可追蹤**：內建 **爬蟲運行日誌**，方便除錯與監控
-- **標準輸出**：數據以 **JSON 格式** 儲存，便於後續分析與應用
-- **規範化日誌輸出**：使用 **Python 的 logging 模組**，以標準格式輸出日誌至終端機
-- **將資料儲存到 SQLite**: 使用 **Python 的 sqlite3**，將資料儲存到簡易的資料庫中
-
-## **儲存的資料格式**
-1. 終端機輸出 & json 文件: 資料主要以 json 的格式處存，其架構如下:
-```
+```json
 {
     "姓名": str, "職稱": str,
     "學歷": str, "經歷": list[str],
@@ -143,232 +186,89 @@ pip install selenium
     "辦公室": str, "Office hour": str
 }
 ```
-2. 透過 `sqlite3` 創建簡易的 SQL 資料庫，經過妥善的處理後將資料儲存
-  - 可以透過 [**visualiz_sqlite**](../visualiz_sqlite.ipynb) 視覺化
 
-## **環境設置**
-> **請確保 Python 版本 ≥ 3.9** 
+#### 7. 將資訊儲存於電腦中
 
-### **1. 克隆此專案**
-```bash
-git clone git@github.com:Bongo044152/Stephen-Chen.git
-cd Stephen-Chen
-```
+最後，我們將教授的資料以 json 檔案儲存於電腦中；此外還使用了 python 提供的 sqlite3 ( 一種輕量級的 SQL 資料庫 )，以關聯式資料庫的形式儲存 ( 可以理解為表格 )。
 
-### **2. 建立虛擬環境**
-```bash
-python -m venv .venv
-```
+<!-- 首先會向 "scraper" 提供一個網址 (URL)，提出請求訪問，然後 "scraper" 會載入該 URL。 "scraper" 會載入與該頁面相關的所有 HTML 程式碼。對於進階 "web scrapers" 來說，它們可以呈現網站上的所有內容，包括 JavaScript 和層疊樣式表 (CSS) 元素。
+然後，"scraper" 會提取資料。它可以被編程來提取網站的所有資料或僅提取想要的資料。在許多情況下，這關乎我們是如何去設定所要的目標資訊，例如價位資訊。
+最後一步是 "web scraper" 將蒐集到的資料以使用者可用的方式輸出。這可能在 CSV 檔案中或作為 Excel 電子表格。一些比較進階的 "web scrapers" 可以輸出其他格式，例如 JSON，它可以與應用程式介面 (API) 整合。 -->
 
-### **3. 啟動虛擬環境**
-- **Windows PowerShell**
-  ```powershell
-  .\.venv\Scripts\Activate.ps1
-  ```
-- **Windows (Command Prompt)**
-  ```cmd
-  .\.venv\Scripts\activate.bat
-  ```
-- **MacOS/Linux**
-  ```bash
-  source .venv/bin/activate
-  ```
+<!-- ### 而什麼是進階的 "web scrapers" 呢？
 
-### **4. 安裝依賴套件**
-```bash
-pip install -r requirements.txt
-```
+就好比說專案中有使用的 "Selenium"、 "Requests"、 "Scrapy" 就都是屬於進階的爬蟲，它們最主要的三大共通點是：
 
-### **5. selenium 環境架設**
-對於開發者而言，版本更新意味著舊的套件或許對於目前的應用不相容，這意味著:
-  - 如果電腦的 chrome 被更新，那麼救的 chromedriver 就沒有用處了!
+- 動態內容抓取工具：這些工具可以抓取由 JavaScript 驅動的內容的網站。他們使用無頭瀏覽器或 Selenium 等自動化工具與網頁互動並提取資料。
+- API 抓取工具：這些工具直接與 Web API 互動以擷取結構化資料。許多網站提供 API 來以結構化格式存取其資料
+- 以及可以根據需求自定義爬取邏輯、處理函數、條件篩選等 -->
 
-所以，我們需要鎖定 chromedriver 以及 chrome 的版本。
+### Python 如何幫助我們爬取網頁
 
-如果你是 windows 10 以上的用戶，開啟你的 powershell，輸入以下指令:
-```shell
-.\download_chrome.ps1
-```
-> **注意! 這將會下載 64-bit 的版本**
+#### **Requests**
+Python 的 **Requests** 庫是一個用來簡化 HTTP 請求的工具，它將複雜的請求操作抽象成直覺易懂的 API，讓開發者能更專注於與網路上的資料與服務進行互動。不論是抓取網頁、存取 REST API，或是向伺服器提交資料，Requests 都能輕鬆處理。  
+常用於發送 HTTP 請求，例如：**GET**、**POST**、**PUT**、**DELETE** 等。
 
-如果你有額外的需求 ( 例如不同的作業系統 )，可以自行下載: https://googlechromelabs.github.io/chrome-for-testing/
-  (記得根據 [setting 檔案](config\setting.py) 更改你的資料夾名稱)
+#### **Selenium**
+**Selenium** 是一款開源的自動化測試工具與框架，主要用於模擬使用者與網頁之間的互動。它允許開發者透過程式碼自動操作瀏覽器，像是真人使用者一樣執行點擊按鈕、填寫表單、提交資料等操作，廣泛應用於 Web 功能測試與動態資料擷取。
 
-### **6. 執行爬蟲程式**
-1. 使用 request 實現:
-```bash
-python my_request.py
-```
-2. 使用 selenium 實現:
-```bash
-python my_selenium.py
-```
-3. 使用 scrapy 實現:
-```bash
-scrapy crawl go
-```
+在使用 Selenium 前，需先從 [Chrome for Testing availability](https://googlechromelabs.github.io/chrome-for-testing/) 下載對應版本的 Chrome 瀏覽器與驅動程式（ChromeDriver），確保兩者版本相容，以避免執行錯誤。
+
+#### **Scrapy**
+**Scrapy** 是一套強大且高效的開源爬蟲框架，內建完整的爬蟲流程與模組，能夠協助開發者快速構建結構化的資料抓取流程。不僅可用於擷取靜態的 HTML 頁面，也支援 API 資料的擷取與非同步請求。適用於大量抓取像是商品資訊、新聞文章、學術資源或社群媒體內容等。
+
+#### **BeautifulSoup**
+**BeautifulSoup** 是 Python 中用來解析 HTML 和 XML 的工具，特別擅長處理格式不完整或有錯誤的網頁原始碼（俗稱 tag soup）。透過建立網頁的結構樹（DOM Tree），使用者可以用直觀的方式擷取頁面中任何感興趣的資料。它常與 Requests 搭配使用，成為資料清洗與抽取的利器。
+
+# 專案概述
+
+本專案使用 **Python** 作為撰寫爬蟲的程式語言，並利用 **Requests** 模組發送 HTTP 請求來獲取網頁原始碼。接著，使用 **BeautifulSoup** 解析 HTML 結構，提取所需的資料。擷取到的資料經過整理和格式化後，將以 **JSON** 格式儲存，同時也會存入 **SQLite** 資料庫中，以便後續查詢與分析。
+
+此外，為了處理動態載入的網頁內容，本專案也使用了 **Selenium** 模擬瀏覽器操作，確保動態資料能夠被有效抓取。對於更大規模的爬蟲需求，專案中還採用了 **Scrapy** 框架，進一步提升爬取效能並支援多線程處理。
+
+### 工具和技術
+
+- **requests**  
+    用來發送 HTTP 請求，並從網頁伺服器獲取 HTML 內容。它簡單易用，適合抓取靜態網頁。
+
+- **BeautifulSoup (bs4)**  
+    用於解析和篩選 HTML 內容。`BeautifulSoup` 可以輕鬆從 HTML 結構中提取出需要的資料（如標題、鏈接等），並將其轉換成結構化資料。
+
+- **Selenium**  
+    用於處理動態載入的網頁，尤其是當網站使用 JavaScript 動態生成內容時。`Selenium` 可以模擬瀏覽器操作，讓爬蟲能夠「讀取」這些動態資料。
+
+- **Scrapy**  
+    是一個功能強大的爬蟲框架，適用於複雜的爬蟲需求，支援多線程和分佈式爬取。適合用於大規模資料擷取和高效的資料處理。
+  
+- **SQLite**  
+    用來儲存爬取到的資料。`SQLite` 是一個輕量級的資料庫，適合在本地端存儲結構化資料。它提供簡單的查詢介面，便於後續查詢與分析。
+ 
+這是我本專案中的 docs ( 使用工具自動生成 ): https://stephen-chen.vercel.app/index.html
+
+# 總結
+
+在這日新月異的時代裡，網際網路成為了每日最不可或缺的必備品，它既帶來便利性與知識性，而在網際網路中搜尋引擎的背後，所支撐著是網路爬蟲。可以在有如無底洞般的資料庫裡，不斷地搜索，並收集與整理所得到的資料。而在這份專案中可以理解關於爬蟲的基本理念與定義，以及各種爬蟲的差別，還有如何去運作與執行的（如 Googlebot 的探索、建立索引、監測網站變化），不僅更了解網站的爬取方式，也能從中學習到網站的架構方式。隨著網路技術的更新，在未來的每一天當中都會有新的知識與科技，在更新與進步，而我們在這最重要的事情就是，如何去學習它們，以及增進自己。讓自己不在只是跟隨而已。
 
 
-# 核心模組說明
+## 參考資料
 
-## **Request**
+名詞解釋
+---
+- https://www.reddit.com/r/explainlikeimfive/comments/1cj58cl/eli5_what_are_web_crawlers_and_what_are_they_used/?rdt=49422
+- https://research.aimultiple.com/web-crawler/
+- https://soax.com/blog/web-crawling-vs-web-scraping
 
-Python 的 Requests 庫被創建用於使 HTTP 請求更加簡單和人性化。請求複雜性抽象變為簡單的 API，可以專注於與網絡上的服務和數據進行交互。 無論抓取網頁和 REST API 互動，還是向伺服器發送數據，Requests 庫都能提供需求。 
-最常見用於 **Python** 的HTTP 請求（GET、POST、PUT、DELETE 等）
-
-
-| 元件名                    | 功能                                 |
-|------------------------|------------------------------------|
-| **Spider**             | 撰寫的爬蟲邏輯，告訴 Scrapy 要爬哪些頁面、要抓什麼資料    |
-| **Item**               | 結構化資料容器（像是 Python 字典）              |
-| **Pipeline**           | 對資料做清洗、驗證、儲存等操作                    |
-| **Middleware**         | 請求與回應的中介處理，例如換 IP、換 UA、處理 cookie 等 |
-
-## **Selenium**
-Selenium 是一個開源的自動化測試工具和框架，用於測試 Web 應用系統的功能和 UI 畫面。允許開發者編寫腳本來模擬 User 與 Web Browser 的互動。從自動執行一系列的操作，例如點擊按扭，填寫表單及提交等，來測試 Web 的應用系統功能是否正常。
-
-在使用**Selenium**前，需要先從 [Chrome for Testing availability](https://googlechromelabs.github.io/chrome-for-testing/)下載，確保版本的對應性，以防錯誤。
-
-| 元件名                | 功能              |
-|--------------------|-----------------|
-| **BeautifulSoup**  | 用來解析 HTML 結構與內容 |
-| **asyncio**        | 搭配異步項目提高效率      |
-| **logging**        | 管理爬蟲過程中的日誌與錯誤輸出 |
-| **SQLite / MySQL** | 儲存資料庫型爬蟲結果      |
-
-## **Scrapy**
-
-Scrapy是一套開放原始碼框架，它已經定義了完整的爬蟲流程與模組，透過這個框架可以快速、簡單的幫助我們抓取HTML頁面、取得API回傳的資料，甚至於可以撰寫非同步網頁爬蟲。像是從網站中自動擷取結構化資料，如商品資訊、新聞文章、學術資料、社群貼文等等。
-
-| 元件名                    | 功能                                 |
-|------------------------|------------------------------------|
-| **Spider**             | 撰寫的爬蟲邏輯，告訴 Scrapy 要爬哪些頁面、要抓什麼資料    |
-| **Item**               | 結構化資料容器（像是 Python 字典）              |
-| **Pipeline**           | 對資料做清洗、驗證、儲存等操作                    |
-| **Middleware**         | 請求與回應的中介處理，例如換 IP、換 UA、處理 cookie 等 |
-
-## **BeautifulSoup** 
-Beautiful Soup是Python中用來解析HTML、XML標籤文件的模組，並能修復含有未閉合標籤等錯誤的文件（此種文件常被稱為tag soup）；解析後會為這個頁面建立一個BeautifulSoup物件，這個物件中包含了整個頁面的結構樹，透過這個BeautifulSoup物件的結構樹，就可以輕鬆的提取頁面內任何有興趣的資料了。
-
-| 功能                  | 說明                             |
-|---------------------|--------------------------------|
-| 解析 HTML/XML         | 把一整串原始碼解析成樹狀結構                 |
-| 查找標籤（Tag）           | 使用 `.find()`、`.find_all()` 等方法 |
-| 選擇器查詢（CSS Selector） | 用 `.select()` 快速鎖定特定元素         |
-| 讀取文字與屬性             | 拿到 `.text`、`tag['href']` 等內容   |
-
-## **Request**、**Selenium**、**Scrapy**、**BeautifulSoup**  功能比較表
-
-| 模組            | 主要用途                                 | 優點                       | 缺點                       | 適用場景                |
-|---------------|--------------------------------------|--------------------------|--------------------------|---------------------|
-| Requests      | 發送 HTTP 請求並獲取網頁內容（使用 GET 和 POST 抓資料） | 簡單、快速、輕量                 | 不支持動態網頁、JavaScript 渲染的內容 | 靜態網頁抓取              |
-| Selenium      | 自動化瀏覽器操作                             | 支持 JS 動態網頁，可以模擬用戶操作      | 速度較慢，資源消耗大               | 動態網頁抓取、需要與頁面交互時使用   |
-| Scrapy        | 大型網站爬蟲框架，支援爬取、解析、儲存等流程               | 結構完整、速度快、支持多執行緒與資料儲存流程控制 | 學習曲線稍高，對於簡單任務略顯複雜        | 大型專案、批量數據抓取、自動化爬蟲開發 |
-| BeautifulSoup | 解析 HTML/XML 結構，提取資料                  | 容易上手、語法簡單、適合處理靜態 HTML    | 處理大量資料效能較低，不支援動態渲染       | 靜態網頁解析、小型資料抽取任務     |
-
-## 專案程式表格解析
-
-# **Request**、**Selenium**
-
-| 模組路徑                              | 功能簡述                                                                            |
-|-----------------------------------|---------------------------------------------------------------------------------|
-| `my_request.py` 、`my_selenium.py` | 主執行程式，負責初始化流程與整合各模組                                                             |
-| `scrapers/professor_scraper.py`   | 負責資料抓取邏輯，包含多頁處理、URL 發送等                                                         |
-| `parsers/professor_parser.py`     | 處理 HTML 結構的解析，將教授資訊轉為字典                                                         |
-| `utils/async_utils.py`            | 定義 `@async_request` 裝飾器，讓同步函式支援非同步操作                                            |
-| `utils/http_utils.py`             | 封裝 HTTP 請求邏輯，包含 User-Agent 模擬與錯誤分類                                              |
-| `utils/logger.py`                 | 日誌模組與`Request`模組的結合可以幫助開發者在發送 HTTP 請求、處理響應過程中，並根據設置的日誌級別進行靈活的輸出，從而提升除錯與運行監控的能力。 |
-| `config/setting.py`               | 控制爬蟲參數，如網址、頁數、超時、輸出路徑等                                                          |
-
-## **Scrapy**
-
-| 模組路徑                     | 功能簡述                                               |
-|--------------------------|----------------------------------------------------|
-| `my_spider.py`           | 主執行程式，負責初始化流程與整合各模組                                |
-| `scrappp/items.py`       | 定義爬取資料的欄位結構，供 `Spider` 抓取`Pipeline` 儲存時使用。         |
-| `scrappp/middlewares.py` | 用來插入自訂邏輯的擴展點，攔截 `request`/`response`，控制資料流程與錯誤處理。  |
-| `scrappp/pipelines.py`   | 處理與儲存爬取資料的模組，定義好後透過 `process_item()`執行資料清洗或輸出。     |
-| `scrappp/settings.py`    | 控制爬蟲行為、資料流程、效能優化與功能擴展的設定檔，是讓你的爬蟲穩定、安全、高效運行的關鍵配置地。  |
-
-## **SQLite**
-
-| 函數名稱                                   | 功能說明                | 影響資料表                                                   | 額外提醒           |
-|----------------------------------------|---------------------|---------------------------------------------------------|----------------|
-| `fetch_professor_data(professor_name)` | 查詢特定教授的基本資料、經歷與研究領域 | `professor_data`, `experience`, `research_field`        | 若查無資料會提示       |
-| `browse_all_data()`                    | 瀏覽所有教授資料與相關表格內容     | 全部表格 (`professor_data`, `experience`, `research_field`) | 僅查詢、不更動資料      |
-| `clear_database()`                     | 刪除所有資料表（清空整個資料庫）    | 全部表格                                                    | 資料刪除後**無法還原**  |
-
-
-# 資料解析方式
-
-### 1. **功能模組**總結
-
-
-#### 1.1 **HTTP請求工具 (http_utils.py)**
-這個模組的主要功能是發送 HTTP 請求，並處理響應和錯誤：
-- `get_random_user_agent()`: 隨機選擇一個 User-Agent 來避免被封鎖。
-- `fetch_page()`: 發送 GET 請求到指定 URL，並處理回應。它會記錄錯誤，如超時、HTTP錯誤等。
-    - 若請求成功，返回 `{'content': response.text}`。
-    - 若請求失敗，根據不同的錯誤類型返回錯誤信息（如 `Timeout`, `HTTPError`, 等）。
-
-#### 1.2 **異步處理工具 (async_utils.py)**
-這個模組通過裝飾器將同步函數轉換為異步函數，主要應用於非同步請求的處理：
-- `async_request(func)`: 用於將同步函數包裝成異步函數，支持異常處理及錯誤分類。
-    - 異常會根據錯誤類型輸出，如 `Timeout`、`HTTPError`、`RequestException` 等。
-
-#### 1.3 **日誌模組 (logger.py)**
-這個模組提供了基礎的日誌輸出功能：
-- `init_logger(level)`: 根據設定的級別來輸出不同的日誌訊息（如 DEBUG、INFO、ERROR等）。
-    - 默認日誌級別為 `INFO`，可以根據需要設定為 `DEBUG`, `ERROR` 等來控制日誌的詳細程度。
-
-#### 1.4 **Scrapy設置與中介層 (scrapy)** 
-- `MyprojectItem`: 用來定義在 Scrapy 網絡爬蟲項目中使用的數據模型。
-    - 每個 `scrapy.Item` 類似於數據結構，可以包含爬取的網頁數據字段。
-- `Spider Middleware` 及 `Downloader Middleware`:
-    - 用來處理請求和回應的過程，可以進行錯誤處理、異常捕獲、修改請求或響應等操作。
-- `MyprojectPipeline`: 在 Scrapy 中處理從爬蟲返回的數據（例如清理數據、存儲到數據庫等）。
-
-
-
-### 2. **程式碼功能與Scrapy的關聯**
-
-#### 2.1 **Scrapy專案結構與設定**
-- `settings.py`：配置 Scrapy 爬蟲的各種設置，如 User-Agent、請求延遲、最大並發請求等。
-- `spider_middleware` 和 `downloader_middleware`：可以對 Scrapy 的請求/回應處理過程進行干預，如錯誤處理、重試機制等。
-
-#### 2.2 **數據流向與處理**
-在 Scrapy 的運行過程中，請求被發送到網站，返回的回應會被 `spider_middleware` 或 `downloader_middleware` 進行處理。這些中介層可以記錄請求過程、檢查異常、改寫請求等。
-
-- **Pipeline**: 當數據從爬蟲返回後，它會進入 `item pipelines`，可以在此處處理數據（例如清理數據、存儲到文件、數據庫等）。
-
-#### 2.3 **日誌在Scrapy中的應用**
-- Scrapy 本身已經提供了日誌功能，但 `logger.py` 可以進一步定義和優化日誌輸出，並將其應用於爬蟲、請求過程中。它能輸出不同的錯誤，便於後續分析和除錯。
-    - 可以在 Scrapy 配置文件中設定日誌級別，並將日誌輸出到文件或控制台。
-
-#### 2.4 **異步請求**
-- `async_request` 裝飾器可以與 Scrapy 一起使用，以提高請求處理效率。由於 Scrapy 是基於 Twisted 框架的非同步模型，它支持非同步請求，異步處理工具可以幫助在 Scrapy 中更好地管理請求。
-
-
-
-### 3. **總結**
-
-在程式碼中結合了 **Scrapy** 爬蟲框架的功能和一些自定義的工具模組來增強爬蟲的穩定性、效率與可擴展性：
-
-- **異步處理** (`async_request` 裝飾器) 使得請求的處理更加高效，避免阻塞。
-- **HTTP請求工具** (`http_utils.py`) 用於發送請求並處理錯誤，並根據請求結果進行適當的日誌記錄。
-- **日誌模組** (`logger.py`) 為程式的運行提供詳細的錯誤、警告、信息記錄，幫助您追蹤和除錯。
-- **Scrapy設置與中介層** 提供了對請求和響應的處理機制，並且支持錯誤處理、重試等功能。
-
-這些模組的結合的爬蟲項目在穩定性和效率上都有了很大的提升，同時也方便後期維護和擴展。
-
-
-
-# 錯誤處理策略
-- 所有爬取請求與處理皆包裝於 `@async_request` 裝飾器中
-- 自動偵測錯誤類型，分為：
-  - `Timeout`：請求超時
-  - `HTTPError`：伺服器錯誤
-  - `RequestException`：提供明確的錯誤類別 方便使用者進行錯誤補捉
-  - `UnknownError`：未知例外狀況
-
-
+爬蟲的用途與運作方式
+---
+- https://www.promptcloud.com/blog/a-complete-guide-to-web-scraping/
+- https://www.fortinet.com/resources/cyberglossary/web-scraping
+- https://careerfoundry.com/en/blog/data-analytics/web-scraping-guide/#what-is-web-scraping-used-for
+- https://www.akamai.com/glossary/what-is-a-web-crawler
+- https://www.pluralsight.com/resources/blog/guides/advanced-web-scraping-tactics-python-playbook
+- https://kanhasoft.com/blog/advanced-web-scraping-techniques-for-complex-websites/
+- https://soax.com/glossary/web-scraping
+- https://medium.com/@anupama.pathirage/understanding-the-search-engines-88fbef0f0ba6
+- https://www.americaneagle.com/insights/blog/post/what-is-googlebot-crawler---how-does-it-work
+- https://developers.google.com/search/docs/crawling-indexing/googlebot
+- https://developers.google.com/search/docs/fundamentals/how-search-works
+- https://www.youtube.com/playlist?list=PLKoqnv2vTMUN83JWBNM6MoBuBcyqhFNY3
