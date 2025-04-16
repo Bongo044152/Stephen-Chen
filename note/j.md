@@ -1,5 +1,8 @@
 # 網路爬蟲介紹
 
+「你知道嗎？搜尋的第一步，並不是搜尋，而是爬。」
+
+這句話讓我第一次認識到，其實搜尋引擎的核心不是搜尋，而是背後那成千上萬隻不眠不休的「網路爬蟲」。從那天起，我開始好奇：爬蟲是在做什麼的？而它又是如何去使用的？
 <!-- 需要引言 -->
 
 ## 什麼是網路爬蟲?
@@ -30,7 +33,7 @@
 
 因此，對於網路爬蟲的通俗定義上，就是:**「<mark>一個自動化的網路程式用來從網路上獲取內容，專注在探索</mark>」**。
 
-### web crawer vs web spider vs web scraper
+### web crawler vs web spider vs web scraper
 
 對於 web spider 來說，其意義等同於 web crawer，因為網路爬蟲主要在全球資訊網 ( World Wide Web : www ) 上游走、爬巡，如同蜘蛛在蜘蛛網上爬行一樣。
 
@@ -43,8 +46,8 @@
 ### 小總結
 
 對於 web scraper 而言，他強調的是數據的抓取，與 web crawer 最大的不同就是:
-- web crawer 專注於探索 ( discover ) ，通常用於搜尋引擎，詳細可以跳轉道 [爬蟲的用途與運作方式](##爬蟲的用途與運作方式)。
-- web scraper 專注於提取資料，通常會儲存以便於後續的分析 ( 非必要 )。
+- web crawler 專注於探索 ( discover ) ，通常用於搜尋引擎，詳細可以跳轉道 [爬蟲的用途與運作方式](##爬蟲的用途與運作方式)。
+- web scraper 專注於提取資料，通常會儲存以便於後續的分析。
 
 想要了解更多這兩者之間的差異，有興趣你可以參考[此影片](https://www.youtube.com/watch?v=rcaCxMXKysY)，或者[這篇文章](https://soax.com/blog/web-crawling-vs-web-scraping)。
 
@@ -53,6 +56,17 @@
 在理解了 Web crawler 與 Web scraper 的基本區別後，接下來我們將聚焦探討 Web crawler 的主要用途及其運作方式。
 
 ## Web Crawler
+
+> **你知道嗎？**
+> 
+> 其實我們每天都在使用由爬蟲所提供的服務，只是你可能沒發現
+>
+> - Google 搜尋結果（Googlebot）
+> - Amazon 商品推薦（Amazonbot）
+> - DuckDuckGo 搜尋（DuckDuckBot）
+> - Yahoo、Baidu、Yandex⋯⋯
+>
+> 這些網站都是平時，我們會去使用的到的，一開始會認為說爬蟲聽起來蠻抽象的，但實際去了解，其實他已經存在於你的生活中了
 
 Web Crawler 的核心在於「探索 (Discover)」，最典型的應用就是搜尋引擎。我們將以 Google 的爬蟲 Googlebot 為例，來探討下面的兩個問題：
 1. Web Crawler 如何「探索 (Discover)」或發現新的網站?
@@ -124,35 +138,110 @@ GoogleBot 會掃描頁面上的所有**連結 (Links)**，將找到的新 URL �
 了解爬蟲的運作方式，對於網站管理者進行「搜尋引擎優化 (Search Engine Optimization, SEO)」至關重要。
 透過優化網站結構、內容品質、載入速度和技術細節 (如正確使用 robots.txt、提交 Sitemap)，可以幫助爬蟲更有效地發現、抓取和索引頁面，進而可能提升網站在搜尋結果中的自然排名。
 
+## Web Scraper
+
+Web Scraper 的核心在於「擷取（Retrieve）」，最典型的應用就是分析資料。
+
+主要用於包括電子商務智慧、品牌監控和市場研究....，通常會存取資料，以便於日後分析、比較。
+
+本專案目標是要去亞大資工的網頁爬取教授的資料，符合 Web Scraper 的主要特徵，也就是「擷取（Retrieve）」。
+
+### **Scraper** 它是如何**運行**的呢？
+
+![scraper運作圖](https://www.promptcloud.com/wp-content/uploads/2023/09/image.png.webp)
+- [圖片來源](https://www.promptcloud.com/blog/a-complete-guide-to-web-scraping/)
+
+#### 1&2&3. 獲取 URL: 使用 pyhton 的 request 等工具，可以向網頁發起 HTTP 請求，以獲取網頁 ( HTML )
+
+我們向目標網址: https://csie.asia.edu.tw/zh_tw/associate_professors_2 發起網路 http 的 GET 請求。
+
+註記: 我們不需要網路代理，直接發起請求即可。
+#### 4. 使用 BeautifulSoup 去定位 HTML 元素，並且解析訊息 
+( 這個步驟相當於 Scraper 重混亂訊息中，或許可利用的訊息可以是教授的資料、演唱會門票價格、圖書館營業時間等等 )
+
+在我們的專案中，先是使用
+`<ul class="i-member-profile-list" data-list="profile_data" data-level="3">`
+來定位每個教授，再逐一過濾 `<li>` 標籤。
+
+#### 5. 將獲取的資料進行清洗
+如果是字串的話，可以進行依些訊息優化，例如演唱會門票的是`$1000`，可以去掉`$`，只保留`1000`。
+
+<!-- 例如我們去除了 "姓名:" -->
+
+#### 6. 將資料進行彙整
+以演唱會為例，其資料可以整理成json格式:
+
+```json
+{
+    "prize": 1000,
+    "date": "2025.4.16",
+    "singer":"周杰倫"
+}
+```
+
+在本專案中，我們將資訊整理成如下格式，方便後續整理:
+
+```json
+{
+    "姓名": str, "職稱": str,
+    "學歷": str, "經歷": list[str],
+    "研究領域": list[str], "email": str,
+    "辦公室": str, "Office hour": str
+}
+```
+
+#### 7. 將資訊儲存於電腦中
+
+最後，我們將教授的資料以 json 檔愛儲存於電腦中；此外還使用了 python 提供的 splite3 ( 一種輕量級的 SQL 資料庫 )，以關聯式資料庫的形式儲存 ( 可以理解為表格 )。
+
+<!-- 首先會向 "scraper" 提供一個網址 (URL)，提出請求訪問，然後 "scraper" 會載入該 URL。 "scraper" 會載入與該頁面相關的所有 HTML 程式碼。對於進階 "web scrapers" 來說，它們可以呈現網站上的所有內容，包括 JavaScript 和層疊樣式表 (CSS) 元素。
+然後，"scraper" 會提取資料。它可以被編程來提取網站的所有資料或僅提取想要的資料。在許多情況下，這關乎我們是如何去設定所要的目標資訊，例如價位資訊。
+最後一步是 "web scraper" 將蒐集到的資料以使用者可用的方式輸出。這可能在 CSV 檔案中或作為 Excel 電子表格。一些比較進階的 "web scrapers" 可以輸出其他格式，例如 JSON，它可以與應用程式介面 (API) 整合。 -->
+
+<!-- ### 而什麼是進階的 "web scrapers" 呢？
+
+就好比說專案中有使用的 "Selenium"、 "Requests"、 "Scrapy" 就都是屬於進階的爬蟲，它們最主要的三大共通點是：
+
+- 動態內容抓取工具：這些工具可以抓取由 JavaScript 驅動的內容的網站。他們使用無頭瀏覽器或 Selenium 等自動化工具與網頁互動並提取資料。
+- API 抓取工具：這些工具直接與 Web API 互動以擷取結構化資料。許多網站提供 API 來以結構化格式存取其資料
+- 以及可以根據需求自定義爬取邏輯、處理函數、條件篩選等 -->
+
+### Python 如何幫助我們爬取網頁
+
+你這段介紹寫得很清楚，內容也很完整！下面是我幫你進行的 **潤飾、優化與錯誤修正**，主要針對語句通順、專業度與一致性進行調整，同時保持原本的邏輯架構不變：
+
+#### **Requests**
+Python 的 **Requests** 庫是一個用來簡化 HTTP 請求的工具，它將複雜的請求操作抽象成直覺易懂的 API，讓開發者能更專注於與網路上的資料與服務進行互動。不論是抓取網頁、存取 REST API，或是向伺服器提交資料，Requests 都能輕鬆處理。  
+常用於發送 HTTP 請求，例如：**GET**、**POST**、**PUT**、**DELETE** 等。
+
+#### **Selenium**
+**Selenium** 是一款開源的自動化測試工具與框架，主要用於模擬使用者與網頁之間的互動。它允許開發者透過程式碼自動操作瀏覽器，像是真人使用者一樣執行點擊按鈕、填寫表單、提交資料等操作，廣泛應用於 Web 功能測試與動態資料擷取。
+
+在使用 Selenium 前，需先從 [Chrome for Testing availability](https://googlechromelabs.github.io/chrome-for-testing/) 下載對應版本的 Chrome 瀏覽器與驅動程式（ChromeDriver），確保兩者版本相容，以避免執行錯誤。
+
+#### **Scrapy**
+**Scrapy** 是一套強大且高效的開源爬蟲框架，內建完整的爬蟲流程與模組，能夠協助開發者快速構建結構化的資料抓取流程。不僅可用於擷取靜態的 HTML 頁面，也支援 API 資料的擷取與非同步請求。適用於大量抓取像是商品資訊、新聞文章、學術資源或社群媒體內容等。
+
+#### **BeautifulSoup**
+**BeautifulSoup** 是 Python 中用來解析 HTML 和 XML 的工具，特別擅長處理格式不完整或有錯誤的網頁原始碼（俗稱 tag soup）。透過建立網頁的結構樹（DOM Tree），使用者可以用直觀的方式擷取頁面中任何感興趣的資料。它常與 Requests 搭配使用，成為資料清洗與抽取的利器。
+
+# 專案概述
+
+<!-- 目標&資料獲取&儲存 <簡述>: ...
+本專案使用 python 作為撰寫爬蟲的程式語言，並且使用 requests 這個模塊 發起 HTTP 請求........
+工具和技術: 使用 python 提供的 request 發起 HTTP 請求，並且獲取網頁/HTML內容，並取使用 python 提供的 bs4/BeautifulSoup 進行資料篩選、過濾。
+
+本專案為一套基底於 Python 開發的網頁爬蟲工具，從[亞洲大學資工系教授網頁](https://csie.asia.edu.tw/zh_tw/associate_professors_2 )網站擷取各教授的研究專長、聯絡方式、個人網頁等資料，並將其結構化儲存為 JSON 格式。 -->
+
+這是我本專案中的 docs ( 使用工具自動生成 ): https://stephen-chen.vercel.app/index.html
+
 ### 總結
 
+在這日新月異的時代裡，網際網路成為了每日最不可或缺的必備品，它既帶來便利性與知識性，而在網際網路中搜尋引擎的背後，所支撐著是網路爬蟲。可以在有如無底洞般的資料庫裡，不斷地搜索，並收集與整理所得到的資料。而在這份專案中可以理解關於爬蟲的基本理念與定義，以及各種爬蟲的差別，還有如何去運作與執行的（如 Googlebot 的探索、建立索引、監測網站變化），不僅更了解網站的爬取方式，也能從中學習到網站的架構方式。隨著網路技術的更新，在未來的每一天當中都會有新的知識與科技，在更新與進步，而我們在這最重要的事情就是，如何去學習它們，以及增進自己。讓自己不在只是跟隨而已。
 <!-- 需要總結 -->
 
 <!-- AI: 網路爬蟲是現代網際網路不可或缺的一部分，尤其是對於搜尋引擎而言。它們像是不知疲倦的網路探險家，持續不斷地探索、收集和整理著浩瀚的網路資訊。理解爬蟲的基本定義、與網路抓取的區別，以及其核心運作流程（如 Googlebot 的爬取、渲染、索引過程），不僅能讓我們更了解搜尋引擎的幕後工作，也對網站管理者優化自身網站在網路上的可見度有所助益。隨著網路技術的發展，網路爬蟲的技術和策略也將持續演進。 -->
 
-
-### 心懸
-剛開始對於 crawler 的用途，我蠻好奇平常會在生活上麼時候會去使用到？
-
-結果令我蠻震驚的，我們居然每天都會去使用到這些網站：
-- Googlebot, the crawler for Google’s search engine
-- Bingbot, Microsoft’s search engine crawler
-- Amazonbot, the Amazon web crawler
-- DuckDuckBot, the crawler for the search engine DuckDuckGo
-- YandexBot, the crawler for the Yandex search engine
-- Baiduspider, the web crawler for the Chinese search engine Baidu
-- Slurp, the web crawler for Yahoo
-
-這些網站都是平時，我們會去使用的到的，一開始會認為說爬蟲聽起來蠻抽象的，但實際去了解，其實他已經存在於你的生活中了
-
-
-##### 本專案中我以 "web scraper" 為主，而 "scraper" 在抓取時它是如何**運行**的呢？
-
-![scraper運作圖](https://www.promptcloud.com/wp-content/uploads/2023/09/image.png.webp)
-
-首先會向 "scraper" 提供一個統一網址 (URL)，然後 "scraper" 會載入該 URL。 "scraper" 會載入與該頁面相關的所有 HTML 程式碼。對於進階 "web scrapers" 來說，它們可以呈現網站上的所有內容，包括 JavaScript 和層疊樣式表 (CSS) 元素。
-然後，"scraper" 會提取資料。它可以被編程來提取網站的所有資料或僅提取想要的資料。在許多情況下，這關乎我們是如何去設定所要的目標資訊，例如價位資訊。
-最後一步是 "web scraper" 將蒐集到的資料以使用者可用的方式輸出。這可能在 CSV 檔案中或作為 Excel 電子表格。一些比較進階的 "web scrapers" 可以輸出其他格式，例如 JSON，它可以與應用程式介面 (API) 整合。
 
 ## 參考資料
 
@@ -168,9 +257,9 @@ GoogleBot 會掃描頁面上的所有**連結 (Links)**，將找到的新 URL �
 - https://www.fortinet.com/resources/cyberglossary/web-scraping
 - https://careerfoundry.com/en/blog/data-analytics/web-scraping-guide/#what-is-web-scraping-used-for
 - https://www.akamai.com/glossary/what-is-a-web-crawler
-
-幹
----
+- https://www.pluralsight.com/resources/blog/guides/advanced-web-scraping-tactics-python-playbook
+- https://kanhasoft.com/blog/advanced-web-scraping-techniques-for-complex-websites/
+- https://soax.com/glossary/web-scraping
 - https://medium.com/@anupama.pathirage/understanding-the-search-engines-88fbef0f0ba6
 - https://www.americaneagle.com/insights/blog/post/what-is-googlebot-crawler---how-does-it-work
 - https://developers.google.com/search/docs/crawling-indexing/googlebot
