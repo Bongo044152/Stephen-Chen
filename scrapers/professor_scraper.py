@@ -87,8 +87,7 @@ class ProfessorScraper:
 
             # Set up scraping tasks for each page
             for i in range(1, self.page_count + 1):
-                params = {'page_no': i}
-                tasks.append(self.fetch_page_wrapper(executor, self.target_url, params))
+                tasks.append(self.fetch_page_wrapper(executor, self.target_url[i-1]))
             
             # Execute all tasks and gather results
             html_results = await asyncio.gather(*tasks)

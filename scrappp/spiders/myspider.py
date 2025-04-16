@@ -17,7 +17,7 @@ import scrapy
 # 構造起始 URL 列表
 urls = []  
 for i in range(PAGE_COUNT):
-    url = TARGET_URL + f"?page_no={i+1}"
+    url = TARGET_URL[i]
     urls.append(url)
 
 class MySpider(scrapy.Spider):

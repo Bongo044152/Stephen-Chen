@@ -56,7 +56,7 @@ def get_data() -> list[str]:
     """
     htmls = []
     for i in range(PAGE_COUNT):
-        url = TARGET_URL + f"?page_no={i + 1}"
+        url = TARGET_URL[i]
         my_logger.info(f"開始獲取: {url}")
 
         driver.get(url)

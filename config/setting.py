@@ -4,7 +4,7 @@
 import os
 
 # 目標網站
-TARGET_URL = "https://csie.asia.edu.tw/zh_tw/associate_professors_2"
+TARGET_URL = ["https://csie.asia.edu.tw/zh_tw/TeacherIntroduction/Full_time_faculty", "https://csie.asia.edu.tw/zh_tw/TeacherIntroduction/Part_time_faculty"]
 
 # 資料儲存配置
 DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data")
