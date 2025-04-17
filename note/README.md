@@ -32,7 +32,7 @@
 
 ### web crawler vs web spider vs web scraper
 
-對於 web spider 來說，其意義等同於 web crawer，因為網路爬蟲主要在全球資訊網 ( World Wide Web : www ) 上游走、爬巡，如同蜘蛛在蜘蛛網上爬行一樣。
+對於 web spider 來說，其意義等同於 web crawler，因為網路爬蟲主要在全球資訊網 ( World Wide Web : www ) 上游走、爬巡，如同蜘蛛在蜘蛛網上爬行一樣。
 
 那麼 scraping 是什麼?
 > **<mark>the activity of taking information from a website or computer screen</mark> and <mark>putting it into spreadsheet</mark> (= an electronic document in which information is arranged in rows and columns and can be used in calculations) <mark>on a computer.</mark>**
@@ -180,11 +180,16 @@ Web Scraper 的核心在於「擷取（Retrieve）」，最典型的應用就是
 
 ```json
 {
-    "姓名": str, "職稱": str,
-    "學歷": str, "經歷": list[str],
-    "研究領域": list[str], "email": str,
-    "辦公室": str, "Office hour": str
+    "姓名": str,
+    "職稱": str,
+    "學歷": str,
+    "經歷": list[str],
+    "研究領域": list[str],
+    "email": str,
+    "辦公室": str,
+    "Office hour": str
 }
+
 ```
 
 #### 7. 將資訊儲存於電腦中
@@ -224,7 +229,7 @@ Python 的 **Requests** 庫是一個用來簡化 HTTP 請求的工具，它將�
 
 本專案使用 **Python** 作為撰寫爬蟲的程式語言，並利用 **Requests** 模組發送 HTTP 請求來獲取網頁原始碼。接著，使用 **BeautifulSoup** 解析 HTML 結構，提取所需的資料。擷取到的資料經過整理和格式化後，將以 **JSON** 格式儲存，同時也會存入 **SQLite** 資料庫中，以便後續查詢與分析。
 
-此外，為了處理動態載入的網頁內容，本專案也使用了 **Selenium** 模擬瀏覽器操作，確保動態資料能夠被有效抓取。對於更大規模的爬蟲需求，專案中還採用了 **Scrapy** 框架，進一步提升爬取效能並支援多線程處理。
+此外，為了處理動態載入的網頁內容，本專案也使用了 **Selenium** 模擬瀏覽器操作，確保動態資料能夠被有效抓取。專案中也採用**Scrapy**框架，主要是因為它在處理資料結構清楚、格式一致的網頁時特別有效率。
 
 ### 工具和技術
 
@@ -257,6 +262,12 @@ Python 的 **Requests** 庫是一個用來簡化 HTTP 請求的工具，它將�
 - https://www.reddit.com/r/explainlikeimfive/comments/1cj58cl/eli5_what_are_web_crawlers_and_what_are_they_used/?rdt=49422
 - https://research.aimultiple.com/web-crawler/
 - https://soax.com/blog/web-crawling-vs-web-scraping
+- https://en.wikipedia.org/wiki/Web_crawler
+- https://dictionary.cambridge.org/zht/%E8%A9%9E%E5%85%B8/%E8%8B%B1%E8%AA%9E-%E6%BC%A2%E8%AA%9E-%E7%B9%81%E9%AB%94/crawler
+- https://www.cloudflare.com/zh-tw/learning/bots/what-is-a-web-crawler/
+- https://www.akamai.com/glossary/what-is-a-web-crawler
+- https://dictionary.cambridge.org/zht/%E8%A9%9E%E5%85%B8/%E8%8B%B1%E8%AA%9E-%E6%BC%A2%E8%AA%9E-%E7%B9%81%E9%AB%94/scraping
+- https://www.youtube.com/watch?v=rcaCxMXKysY
 
 爬蟲的用途與運作方式
 ---
