@@ -180,14 +180,13 @@ Web Scraper 的核心在於「擷取（Retrieve）」，最典型的應用就是
 
 ```json
 {
-    "姓名": str,
-    "職稱": str,
-    "學歷": str,
-    "經歷": list[str],
-    "研究領域": list[str],
-    "email": str,
-    "辦公室": str,
-    "Office hour": str
+  "姓名": "王小明",
+  "學校": "亞洲大學",
+  "科系": "資訊工程學系",
+  "研究領域": ["人工智慧", "資料探勘"],
+  "聯絡信箱": ["ming@example.com", "ming2@example.com"],
+  "辦公室": " I123 ",
+  "Office hour": "https://www.exampledata.com/dashboard"
 }
 
 ```
