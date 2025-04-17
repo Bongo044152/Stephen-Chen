@@ -4,13 +4,12 @@
 
 ## 功能特點
 
-- **高效能爬取**：結合 Selenium 與 asyncio 非同步技術，有效提升爬取速度性  
 - **HTML 解析**：透過自製 ProfessorParser 模組，自動擷取教授頁面中的關鍵資訊  
 - **Email 解碼還原**：支援解析 JavaScript 混淆的email，還原聯絡資訊  
 - **模組化架構**：採用清晰的模組劃分（parsers、scrapers、utils 等），便於擴充與維護  
+- **內建錯誤分類回報**： 可辨識多種常見錯誤（如 Timeout、HTTPError、RequestException、UnknownError）
 - **資料儲存至 SQLite**：以 Python 的 sqlite3 將結構化資料安全儲存至本地資料庫  
 - **JSON 標準輸出**：同步輸出為 JSON 格式，利於後續資料分析與整合應用
-- **規範化日誌輸出**：使用 **Python 的 logging 模組**，以標準格式輸出日誌
 
 
 ## **儲存的資料格式**
